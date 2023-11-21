@@ -1,15 +1,8 @@
-# ClueGameRepository
-# Final Project for ECE350
+# ClueGameRepository - Final Project for ECE350
 
 ## Made by Jeremyah Flowers (jtf45) and Doriz Concepcion (dsc54)
 
-## Description of Design 
-
-## Bugs
-
-## Notes to editors
-
-Notes about C code 
+Notes about C code:
 -------------------
 
 When developing the C-code outline for the assembly, remember that each line will be mapped to the cooresponding
@@ -19,7 +12,7 @@ easily followed in C, assmebly, and by other programmers (i.e., me).
 
 For ease of implementation, each step should be directly mapped **AHEAD OF TIME** to the processor's ISA (listed below):
 
-Examples of Good vs. Bad C Code for Conversion
+Examples of Good vs. Bad C Code for Conversion:
 ----------------------------------------------------------------------------
 
 Here is an example of what that would look like, let's say you write:
@@ -43,6 +36,7 @@ This can be directly translated in assembly as
 Notes about Assembly code:
 ----------------------------------
 **CODE MUST BE READABLE TO BE PROPERLY IMPLEMENTED/DEBUGGED**
+
 **EDITORS**: Please make sure to add comments when creating or adding new functionality to the code.
 
 Original ISA:
