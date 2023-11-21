@@ -40,6 +40,7 @@ Notes about Assembly code:
 **EDITORS**: Please make sure to add comments when creating or adding new functionality to the code.
 
 Original ISA:
+
 1.  add $RD, $RS, $RT
 2.  addi $rd, $rs, N
 3.  sub $rd, $rs, $rt
@@ -60,6 +61,7 @@ Original ISA:
 18. setx T
     
 Customized ISA (TBD):
+
 19. rng $rd (writes a random number to RD)
 
 
