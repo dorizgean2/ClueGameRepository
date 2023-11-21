@@ -40,25 +40,26 @@ Notes about Assembly code:
 **EDITORS**: Please make sure to add comments when creating or adding new functionality to the code.
 
 Original ISA:
-    1.  add $RD, $RS, $RT
-    2.  addi $rd, $rs, N
-    3.  sub $rd, $rs, $rt
-    4.  and $rd, $rs, $rt
-    5.  or $rd, $rs, $rt
-    6.  sll $rd, $rs, shamt
-    7.  sra $rd, $rs, shamt
-    8.  mul $rd, $rs, $rt
-    9.  div $rd, $rs, $rt
-    10. sw $rd, N($rs)
-    11. lw $rd, N($rs)
-    12. j T
-    13. bne $rd, $rs, N
-    14. jal T
-    15. jr $rd
-    16. blt $rd, $rs, N
-    17. bex T
-    18. setx T
+1.  add $RD, $RS, $RT
+2.  addi $rd, $rs, N
+3.  sub $rd, $rs, $rt
+4.  and $rd, $rs, $rt
+5.  or $rd, $rs, $rt
+6.  sll $rd, $rs, shamt
+7.  sra $rd, $rs, shamt
+8.  mul $rd, $rs, $rt
+9.  div $rd, $rs, $rt
+10. sw $rd, N($rs)
+11. lw $rd, N($rs)
+12. j T
+13. bne $rd, $rs, N
+14. jal T
+15. jr $rd
+16. blt $rd, $rs, N
+17. bex T
+18. setx T
+    
 Customized ISA (TBD):
-    19. rng $rd (writes a random number to RD)
+19. rng $rd (writes a random number to RD)
 
 
