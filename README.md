@@ -33,6 +33,18 @@ This can be directly translated in assembly as
 
 ----------------------------------------------------------------------------
 
+After sucessfully editing the C outline, use the following terminal command to compile the code:
+
+    g++ GameLogicLayout.c -o GameLogicLayout
+
+Then, run the code with the following arguements:
+
+    ./GameLogicLayout <RUN> <PLAYERS>
+
+    <RUN> = Should the game run? INPUT YES - 1 or NO - 0
+    <PLAYERS> = How many players? INPUT 1, 2, 3, or 4
+    
+
 Notes about Assembly code:
 ----------------------------------
 **CODE MUST BE READABLE TO BE PROPERLY IMPLEMENTED/DEBUGGED**
