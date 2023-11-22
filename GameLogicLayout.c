@@ -111,79 +111,91 @@ int main(int argc, char *argv[]) {
 
 	int roll_button = LO;
 	int accuse_button = LO;
+
 	int dice_roll = 0;
 	int accusing_player = 0;
 	char accused_player_name[32];
+
+	int turn = 1;
 
 	// Checks whether the max number of rounds has been played 
 	
 	if(game_runtime != MAX_RUNTIME) {
 	    
-	    // TODO: Incorporate player turns in each game round
-	
 	    game_runtime = game_runtime + 1;     	
+
+	    // TODO: fix turns breaking with incorrect input 
+	    while(turn < players) {
+
 	    
-	    printf("Roll dice? (1 - YES, 0 - NO)\n");			
-	    scanf("%d", &roll_button);
+		printf("Turn: %d\n", turn);			
+		printf("Roll dice? (1 - YES, 0 - NO)\n");			
+		scanf("%d", &roll_button);
 
-	    // Checks whether a dice roll is needed
+		// Checks whether a dice roll is needed
 
-	    if(roll_button == HI) {
+		if(roll_button == HI) {
 
-		dice_roll = rand() % 7;			// Randomly selects a number between 0-6
-		printf("DICE = %d\n", dice_roll);	// NOTE: modulo is not actually needed as part of the ISA 
-							
-	    }
+		    dice_roll = rand() % 7;			// NOTE: modulo is not actually needed as part of the ISA
+		    printf("DICE = %d\n", dice_roll);		// Prints randomly selected number between 0-6 
+							    
+		}
+		
+		// Checks whether no dice roll is needed
+
+		else if(roll_button == LO) {		
+     
+		    printf("Accuse? (1 - YES, 0 - NO)\n");			
+		    scanf("%d", &accuse_button);
 	    
-	    // Checks whether no dice roll is needed
+		    // Checks whether a player is being accused
 
-	    else if(roll_button == LO) {		
- 
-		printf("Accuse? (1 - YES, 0 - NO)\n");			
-		scanf("%d", &accuse_button);
-	
-		// Checks whether a player is being accused
+		    if(accuse_button == HI) {
+			
+			// TODO: End game once the accused player has been correctly guessed
+			// TODO: OR if no player guesses correctly (or no player is left), killer wins and game ends. 
 
-		if(accuse_button == HI) {
-		    
-		    // TODO: End game once the accused player has been correctly guessed
-		    // TODO: OR if no player guesses correctly (or no player is left), killer wins and game ends. 
+			printf("Who is accused? (Enter Name)\n");
+			scanf("%s", accused_player_name);
 
-		    printf("Who is accused? (Enter Name)\n");
-		    scanf("%s", accused_player_name);
+     
+			printf("Which player is accusing? (Enter Number 1-4)\n");			
+			scanf("%d", &accusing_player);
 
- 
-		    printf("Which player is accusing? (Enter Number 1-4)\n");			
-		    scanf("%d", &accusing_player);
+			printf("%s! Well, OK...\n", accused_player_name);
 
-		    printf("%s! Well, OK...\n", accused_player_name);
+			int win_or_lose = end_game(accused_player_name);
 
-		    int win_or_lose = end_game(accused_player_name);
+			if(win_or_lose == WIN) { 
+			    printf("Player %d wins!\n", accusing_player);
+			}
 
-		    if(win_or_lose == WIN) { 
-			printf("Player %d wins!\n", accusing_player);
+			if(win_or_lose == LOSE) { 
+			    printf("Player %d loses!\n", accusing_player);
+			}
+
 		    }
 
-		    if(win_or_lose == LOSE) { 
-			printf("Player %d loses!\n", accusing_player);
-		    }
-
+		    continue;
 		}
 
-		continue;
-	    }
+		// Checks for error and resets round if needed
+		
+		else {					
+		    printf("Incorrect Input. Input 1 for HI or 0 for LO.\n");
+		    turn = turn - 1;
+		    break;
+		}
 
-	    // Checks for error and resets round if needed
-	    
-	    else {					
-		printf("Incorrect Input. Input 1 for HI or 0 for LO.\n");
-		game_runtime = game_runtime - 1;
-	    }
+		turn = turn + 1;
 
+	    }
 	}
 
 	else {
+
 	    running = false;
+
 	}
 
     }
