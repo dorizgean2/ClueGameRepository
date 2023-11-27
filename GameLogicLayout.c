@@ -32,30 +32,36 @@ const int LO = 0;			// Button logic for OFF
 const int HI = 1;			// Button logic for ON
 const int LOSE = 0;			// LOSE condition 
 const int WIN = 1;			// WIN condition
-
 // Global variables for game logic
 
+char player_names[4][32] =  {"Miss Scarlett", "Colonel Mustard", "Chef White", "Reverend Green"};
+char murderer_names[4][32] =  {"Scarlett", "Mustard", "White", "Green"};
 int game_runtime; 			// Total times the game has been played
 int players; 				// Total players in the game
 int running;				// 1 if game is running, 0 otherwise
+int murderer;				// chosen murderer	
 
 // Sets global variables to use in game logic
 
 void launch_game() {
     game_runtime = 0; 				// Sets game rounds = 0
     srand(17*players);				// Generates new seed at the start of the game 
+    murderer = rand() % 3;				// Generates Random Murderer
 }
 
 // Handles exceptions after checking (button) inputs 
 
 void use_exception() {
     printf("USAGE ERROR: ./GameLogicLayout <RUN>  <PLAYERS>\n"); 
-    printf("Input YES - 1 or NO - 0 for <RUN> and 1, 2, 3, or 4 for <PLAYERS>\n"); 
+    printf("Input YES - 1 or NO - 0 for <RUN> and 3 or 4 for <PLAYERS>\n"); 
 }
 
-int end_game(char accusation[]) {
-    // TODO: CREATE END GAME LOGIC USING PLAYERS' ACCUSATIONS AS INPUT AND RIGHT - 1 OR WRONG - 0 AS OUTPUT 
-    // NOTE: END GAME SHOULD BE RANDOMLY GENERATED EACH TIME A NEW GAME IS STARTED 
+int endgame(char accusation[]) {
+   char *murderer_name = murderer_names[murderer];  
+
+    if(murderer_name == accusation) {
+	return 1;
+    }
     
     return 0;
 }
@@ -87,9 +93,9 @@ int main(int argc, char *argv[]) {
 	return EXIT_FAILURE;
     }
 
-    // Checks if PLAYERS is not set to 1, 2, 3, or 4
+    // Checks if PLAYERS is not set to 3 or 4
 
-    if(players < 1) {
+    if(players < 3) {
 	use_exception();
 	return EXIT_FAILURE;
     }
@@ -103,6 +109,8 @@ int main(int argc, char *argv[]) {
 
     launch_game(); 
     	
+    bool ban_player[4] = {false, false, false, false};
+
     // Starts game loop
 
     while(running) { 
@@ -116,7 +124,7 @@ int main(int argc, char *argv[]) {
 	int accusing_player = 0;
 	char accused_player_name[32];
 
-	int turn = 1;
+	int turn = 0;
 
 	// Checks whether the max number of rounds has been played 
 	
@@ -126,65 +134,68 @@ int main(int argc, char *argv[]) {
 
 	    // TODO: fix turns breaking with incorrect input 
 	    while(turn < players) {
-
-	    
-		printf("Turn: %d\n", turn);			
-		printf("Roll dice? (1 - YES, 0 - NO)\n");			
-		scanf("%d", &roll_button);
-
-		// Checks whether a dice roll is needed
-
-		if(roll_button == HI) {
-
-		    dice_roll = rand() % 7;			// NOTE: modulo is not actually needed as part of the ISA
-		    printf("DICE = %d\n", dice_roll);		// Prints randomly selected number between 0-6 
-							    
-		}
 		
-		// Checks whether no dice roll is needed
+		if(ban_player[turn] != true){
 
-		else if(roll_button == LO) {		
-     
-		    printf("Accuse? (1 - YES, 0 - NO)\n");			
-		    scanf("%d", &accuse_button);
+		    char *player_name = player_names[turn];
 	    
-		    // Checks whether a player is being accused
+		    printf("%s's Turn:\n", player_name);			
+		    printf("Roll dice? (1 - YES, 0 - NO)\n");			
+		    scanf("%d", &roll_button);
 
-		    if(accuse_button == HI) {
-			
-			// TODO: End game once the accused player has been correctly guessed
-			// TODO: OR if no player guesses correctly (or no player is left), killer wins and game ends. 
+		    // Checks whether a dice roll is needed
 
-			printf("Who is accused? (Enter Name)\n");
-			scanf("%s", accused_player_name);
+		    if(roll_button == HI) {
 
-     
-			printf("Which player is accusing? (Enter Number 1-4)\n");			
-			scanf("%d", &accusing_player);
+			dice_roll = rand() % 7;			// NOTE: modulo is not actually needed as part of the ISA
+			printf("DICE = %d\n", dice_roll);		// Prints randomly selected number between 0-6 
+								
+		    }
+		    
+		    // Checks whether no dice roll is needed
 
-			printf("%s! Well, OK...\n", accused_player_name);
+		    else if(roll_button == LO) {		
+	 
+			printf("Accuse? (1 - YES, 0 - NO)\n");			
+			scanf("%d", &accuse_button);
+		
+			// Checks whether a player is being accused
 
-			int win_or_lose = end_game(accused_player_name);
+			if(accuse_button == HI) {
+			    
+			    // TODO: End game once the accused player has been correctly guessed
+			    // TODO: OR if no player guesses correctly (or no player is left), killer wins and game ends. 
 
-			if(win_or_lose == WIN) { 
-			    printf("Player %d wins!\n", accusing_player);
-			}
+			    printf("Who is being accused? (Enter Name)\n");
+			    scanf("%s", accused_player_name);
+	    
+			    printf("%s! Well, OK...\n", accused_player_name);
 
-			if(win_or_lose == LOSE) { 
-			    printf("Player %d loses!\n", accusing_player);
+			    int win_or_lose = endgame(accused_player_name);
+
+			    if(win_or_lose == WIN) { 
+				printf("Player %s wins!\n", player_name);
+				game_runtime = MAX_RUNTIME;
+				break;
+			    }
+
+			    if(win_or_lose == LOSE) { 
+				printf("Player %s loses!\n", player_name);
+				ban_player[turn] = true; 
+			    }
+
 			}
 
 		    }
 
-		    continue;
-		}
+		    // Checks for error and resets round if needed
+		    
+		    else {					
+			printf("Incorrect Input. Input 1 for HI or 0 for LO.\n");
+			turn = turn - 1;
+			break;
+		    }
 
-		// Checks for error and resets round if needed
-		
-		else {					
-		    printf("Incorrect Input. Input 1 for HI or 0 for LO.\n");
-		    turn = turn - 1;
-		    break;
 		}
 
 		turn = turn + 1;
@@ -200,6 +211,7 @@ int main(int argc, char *argv[]) {
 
     }
     
+    printf("Killer = %s\n", murderer_names[murderer]);
     printf("Game Ran Successfully\n");
     return EXIT_SUCCESS;
      
