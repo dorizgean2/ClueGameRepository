@@ -123,7 +123,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 	always
 		#10 clock = ~clock; 
 	always
-		#100 button_in = ~button_in;
+		#50 button_in = ~button_in;
 
 
 	//////////////////
