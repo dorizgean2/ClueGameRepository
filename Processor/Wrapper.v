@@ -32,8 +32,7 @@ module Wrapper (clock, reset);
 	wire[31:0] instAddr, instData, 
 		rData, regA, regB,
 		memAddr, memDataIn, memDataOut;
-
-
+	
 	// ADD YOUR MEMORY FILE HERE
 	localparam INSTR_FILE = "";
 	
