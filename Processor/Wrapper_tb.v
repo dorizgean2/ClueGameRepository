@@ -44,7 +44,6 @@ module Wrapper_tb #(parameter FILE = "nop");
 
 	// Inputs to the processor
 	reg clock = 0, reset = 0;
-	reg BTND;
 
 	// I/O for the processor
 	wire rwe, mwe, need_button;
@@ -81,7 +80,6 @@ module Wrapper_tb #(parameter FILE = "nop");
 			cycles = 0,
 			reg_to_test = 0;
 
-	assign data_write = (memAddr == 32'd24 && mwe) ? {31'b0, BTND} : memDataIn;
 
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
@@ -127,8 +125,6 @@ module Wrapper_tb #(parameter FILE = "nop");
 	always
 		#100 button_in = ~button_in;
 
-	always
-		#100 BTND = ~BTND;  
 
 	//////////////////
 	// Test Harness //
