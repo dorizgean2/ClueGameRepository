@@ -31,14 +31,8 @@ module Wrapper (clock, reset);
 	wire[4:0] rd, rs1, rs2;
 	wire[31:0] instAddr, instData, 
 		rData, regA, regB,
-<<<<<<< Updated upstream
 		memAddr, memDataIn, memDataOut;
 	
-=======
-		memAddr, memDataIn, memDataOut, data_write;
-
-
->>>>>>> Stashed changes
 	// ADD YOUR MEMORY FILE HERE
 	localparam INSTR_FILE = "";
 	
@@ -57,11 +51,6 @@ module Wrapper (clock, reset);
 		.wren(mwe), .address_dmem(memAddr), 
 		.data(memDataIn), .q_dmem(data_write)); 
 	
-<<<<<<< Updated upstream
-=======
-	assign data_write = memAddr == 32'd1000 ? {31'b0, BTND} : memDataOut;
-
->>>>>>> Stashed changes
 	// Instruction Memory (ROM)
 	ROM #(.MEMFILE({INSTR_FILE, ".mem"}))
 	InstMem(.clk(clock), 

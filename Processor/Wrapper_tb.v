@@ -51,11 +51,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 	wire[4:0] rd, rs1, rs2;
 	wire[31:0] instAddr, instData, 
 		rData, regA, regB,
-<<<<<<< Updated upstream
 		memAddr, memDataIn, memDataOut, data_out;
-=======
-		memAddr, memDataIn, memDataOut, data_write;
->>>>>>> Stashed changes
 
 	// Wires for Test Harness
 	wire[4:0] rs1_test, rs1_in;
@@ -100,14 +96,10 @@ module Wrapper_tb #(parameter FILE = "nop");
 									
 		// RAM
 		.wren(mwe), .address_dmem(memAddr), 
-<<<<<<< Updated upstream
 		.data(memDataIn), .q_dmem(data_out)); 
 
 	assign need_button = (memAddr == 32'd1000); 
 	assign data_out = need_button ? button_in : memDataOut;
-=======
-		.data(data_write), .q_dmem(memDataOut)); 
->>>>>>> Stashed changes
 	
 	// Instruction Memory (ROM)
 	ROM #(.MEMFILE({DIR, MEM_DIR, FILE, ".mem"}))
@@ -143,11 +135,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 	//////////////////
 
 	initial begin
-<<<<<<< Updated upstream
 		button_in = 1'b0;
-=======
-		BTND = 0;
->>>>>>> Stashed changes
 		// Check if the parameter exists
 		if(FILE == 0) begin
 			$display("Please specify the test");
