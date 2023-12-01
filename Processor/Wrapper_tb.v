@@ -80,6 +80,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 			cycles = 0,
 			reg_to_test = 0;
 
+
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
 								
@@ -126,6 +127,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 		#10 clock = ~clock; 
 	always
 		#50 button_in = ~button_in;
+
 
 	//////////////////
 	// Test Harness //

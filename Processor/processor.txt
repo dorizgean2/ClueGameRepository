@@ -4,6 +4,7 @@ ROM.v
 Wrapper.v
 Wrapper_tb.v
 alu.v
+assembly_test_tb.v
 block_8bit.v
 cla.v
 cla_16.v
