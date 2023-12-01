@@ -45,7 +45,7 @@ module VGAController(
 	wire data_rdy;
 	wire[7:0] ascii_value, sprite1, sprite2, scan_code;
 	reg square1_move, square2_move, square3_move, square4_move;
-	wire BTND_out;
+	wire BTND_out, BTNU_out, BTNL_out, BTNR_out, button_out, button_in;
 	
     assign square1_topx = x-(square1_x-20);
     assign square1_topy = y-(square1_y-20);
@@ -53,7 +53,11 @@ module VGAController(
     assign square2_topy = y-(square2_y-20);
     
 	debounce_better_version debouncey(.pb_1(BTND), .clk(clk), .pb_out(BTND_out));
-	Wrapper proc (.clock(clk), .reset(reset), .BTND(BTND_out));
+	debounce_better_version debouncey(.pb_1(BTNU), .clk(clk), .pb_out(BTNU_out));
+	debounce_better_version debouncey(.pb_1(BTNL), .clk(clk), .pb_out(BTNL_out));
+	debounce_better_version debouncey(.pb_1(BTNR), .clk(clk), .pb_out(BTNR_out));
+	assign button_out = BTND_out || BTNU_out || BTNL_out || BTNR_out;
+	Wrapper proc (.clock(clk), .reset(reset), .button_in(button_out), .button_out(button_in));
     
 	initial begin
 		square1_x = 95;
@@ -283,5 +287,5 @@ module VGAController(
 	assign colorOut = active ? colorData : 12'd0; // When not active, output black
 	//assign square1_color = active ?  sprite_1_data : 12'd0; // When not active, output black
 	// Quickly assign the output colors to their channels using concatenation
-	assign {VGA_R, VGA_G, VGA_B} = square1 ? sprite_1_data : square2 ? sprite_2_data : square3 ? sprite_3_data : square4 ? sprite_4_data : colorOut;
+	assign {VGA_R, VGA_G, VGA_B} = button_in && square1 ? sprite_2_data : square1 ? sprite_1_data : square2 ? sprite_2_data : square3 ? sprite_3_data : square4 ? sprite_4_data : colorOut;
 endmodule
