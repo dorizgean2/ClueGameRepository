@@ -240,7 +240,7 @@ module VGAController(
 		.DEPTH(PIXEL_COUNT), 				     // Set RAM depth to contain every pixel
 		.DATA_WIDTH(PALETTE_ADDRESS_WIDTH),      // Set data width according to the color palette
 		.ADDRESS_WIDTH(PIXEL_ADDRESS_WIDTH),     // Set address with according to the pixel count
-		.MEMFILE({FILES_PATH, "image.mem"})) // Memory initialization
+		.MEMFILE({FILES_PATH, "boardgame.mem"})) // Memory initialization
 	ImageData(
 		.clk(clk), 						 // Falling edge of the 100 MHz clk
 		.addr(imgAddress),					 // Image data address
@@ -254,7 +254,7 @@ module VGAController(
 		.DEPTH(PALETTE_COLOR_COUNT), 		       // Set depth to contain every color		
 		.DATA_WIDTH(BITS_PER_COLOR), 		       // Set data width according to the bits per color
 		.ADDRESS_WIDTH(PALETTE_ADDRESS_WIDTH),     // Set address width according to the color count
-		.MEMFILE({FILES_PATH, "colors.mem"}))  // Memory initialization
+		.MEMFILE({FILES_PATH, "boardgame_colors.mem"}))  // Memory initialization
 	ColorPalette(
 		.clk(clk), 							   	   // Rising edge of the 100 MHz clk
 		.addr(colorAddr),					       // Address from the ImageData RAM
