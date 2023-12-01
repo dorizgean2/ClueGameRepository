@@ -11,6 +11,10 @@ nop
 nop
 nop
 addi $t3, $zero, 1000		# r11 = 1000 = button address
+nop
+nop
+nop
+addi $t1, $zero, 2000		# r9 = 2000 = button address
 btn_test:
 nop
 nop
@@ -23,11 +27,15 @@ bne  $t8, $t2, btn_test		# continuing looping until button is pressed
 nop
 nop
 nop
-addi $t4, $zero, 1		# check if loop ending condition is met 
+addi $t9, $zero, 1
 nop
 nop
 nop
-addi $t9, $zero, 1		# r25 = 1
+sw   $t9, 0($t1)		# r25 = processor output
+nop
+nop
+nop
+add $t4, $t4, $t1		# check if output is changing 
 nop
 nop
 nop

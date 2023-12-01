@@ -46,11 +46,11 @@ module Wrapper_tb #(parameter FILE = "nop");
 	reg clock = 0, reset = 0;
 
 	// I/O for the processor
-	wire rwe, mwe, need_button;
+	wire rwe, mwe, need_button, need_output;
 	wire[4:0] rd, rs1, rs2;
 	wire[31:0] instAddr, instData, 
 		rData, regA, regB,
-		memAddr, memDataIn, memDataOut, data_out;
+		memAddr, memDataIn, memDataOut, data_out, data_in;
 
 	// Wires for Test Harness
 	wire[4:0] rs1_test, rs1_in;
@@ -58,7 +58,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 	reg[9:0] num_cycles = DEFAULT_CYCLES;
 	reg[15*8:0] exp_text;
 	reg null;
-	reg button_in;
+	reg button_in, button_out;
 
 	// Connect the reg to test to the for loop
 	assign rs1_test = reg_to_test;
@@ -96,7 +96,10 @@ module Wrapper_tb #(parameter FILE = "nop");
 		.data(memDataIn), .q_dmem(data_out)); 
 
 	assign need_button = (memAddr == 32'd1000); 
+	assign need_output = &({memAddr == 32'd2000, mwe == 1});
+
 	assign data_out = need_button ? button_in : memDataOut;
+	assign data_in = need_output ? button_out : memDataIn;
 	
 	// Instruction Memory (ROM)
 	ROM #(.MEMFILE({DIR, MEM_DIR, FILE, ".mem"}))
@@ -130,6 +133,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 
 	initial begin
 		button_in = 1'b0;
+		button_out = 1'b0;
 		// Check if the parameter exists
 		if(FILE == 0) begin
 			$display("Please specify the test");
