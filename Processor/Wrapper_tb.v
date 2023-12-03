@@ -100,7 +100,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 	assign need_output = &({memAddr == 32'd2000, mwe == 1});
 
 	assign data_out = need_button ? button_in : memDataOut;
-	assign data_in = need_output ? button_out : memDataIn;
+	assign button_out = need_output ? memDataIn : 1'b0;
 	
 	// Instruction Memory (ROM)
 	ROM #(.MEMFILE({DIR, MEM_DIR, FILE, ".mem"}))
