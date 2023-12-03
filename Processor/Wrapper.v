@@ -26,7 +26,7 @@
 
 module Wrapper (clock, reset, button_in, processor_out);
 	input clock, reset, button_in;
-	output button_out;
+	output [31:0] processor_out;
 
 	wire rwe, mwe, need_button, need_output, data_in;
 	wire[4:0] rd, rs1, rs2;

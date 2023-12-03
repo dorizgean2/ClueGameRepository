@@ -4,7 +4,6 @@ ROM.v
 Wrapper.v
 Wrapper_tb.v
 alu.v
-assembly_test_tb.v
 block_8bit.v
 cla.v
 cla_16.v
@@ -22,6 +21,8 @@ neg_register.v
 processor.v
 regfile.v
 register.v
+rng.v
+rng_tb.v
 sll_1.v
 sll_16.v
 sll_2.v
