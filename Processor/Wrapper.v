@@ -24,21 +24,24 @@
  *
  **/
 
-module Wrapper (clock, reset, button_in, button_out);
+module Wrapper (clock, reset, button_in, processor_out);
 	input clock, reset, button_in;
 	output button_out;
 
-	wire rwe, mwe, need_button;
+	wire rwe, mwe, need_button, need_output, data_in;
 	wire[4:0] rd, rs1, rs2;
 	wire[31:0] instAddr, instData, 
 		rData, regA, regB,
-		memAddr, memDataIn, memDataOut;
+		memAddr, memDataIn, memDataOut, processor_out;
 	
 	// ADD YOUR MEMORY FILE HERE
 	localparam INSTR_FILE = "";
 	
 	assign need_button = (memAddr == 32'd1000); 
-	assign data_out = need_button ? button_in : memDataOut;
+	assign need_output = &({memAddr == 32'd2000, mwe == 1'b1}); 
+
+	assign data_in = need_button ? button_in : memDataOut;
+	assign processor_out = need_output ? memDataIn : 32'b0;
 
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
@@ -53,7 +56,7 @@ module Wrapper (clock, reset, button_in, button_out);
 									
 		// RAM
 		.wren(mwe), .address_dmem(memAddr), 
-		.data(memDataIn), .q_dmem(data_out)); 
+		.data(memDataIn), .q_dmem(data_in)); 
 	
 	// Instruction Memory (ROM)
 	ROM #(.MEMFILE({INSTR_FILE, ".mem"}))
