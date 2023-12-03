@@ -84,7 +84,7 @@ module processor(
 	wire curr_mult_ovf, curr_setx, mem_addi, mxA_cs, wxA_cs, mxB_cs, wxB_cs, blt_true, bne_true, mxB_cond4, wxB_cond4;
 	wire mult_logic, mem_blt, mxB_nb, mxA_cond3, wxA_cond3, wxA_cond4, mxB_cond5, wxB_cond5, wxB_cond6, rdy_md;
 	wire wxA_notzero, mxA_notzero, mxB1_notzero, mxB2_notzero, wxB1_notzero, wxB2_notzero, mxA_cond4, mult_stall;
-	wire mult_exc, dec_jr, h_stall1, h_stall2, h_stall3;
+	wire mult_exc, dec_jr, h_stall1, h_stall2, h_stall3, rng;
 	
 	assign ie = 1'b1;
 	assign oe = 1'b1;
@@ -140,7 +140,7 @@ module processor(
 
 	assign opcode = stall ? 5'b0 : execute[31:27];	
 	assign shift_amt = execute[11:7];	
-	assign ALUop = |{stall, addi, setx, bex} ? 5'b0 : |{blt, bne} ? 5'b00001 : execute[6:2];	
+	assign ALUop = |{stall, addi, setx, bex} ? 5'b0 : rng ? 5'b01000 : |{blt, bne} ? 5'b00001 : execute[6:2];	
 	assign nop = 32'b0;
 
 	assign j = &({~{opcode[4:1]}, opcode[0]}); 
@@ -163,6 +163,7 @@ module processor(
 	assign addi = &({~{opcode[4:3], opcode[1]}, opcode[2], opcode[0]});
 	assign sw = &({~{opcode[4:3]}, opcode[2:0]});
 	assign lw = &({~{opcode[4], opcode[2:0]}, opcode[3]});
+	assign rng = &({opcode[4], opcode[2:0], ~{opcode[3]}}); 
 
 	assign branch = |{j1, j2, bne_true, blt_true};
 
@@ -282,7 +283,7 @@ module processor(
 
 	sx_32 sign_extend(target, immediate, execute);
 
-	alu alu_main(data_opA, data_opB, ALUop, shift_amt, alu_out, isNotEqual, isLessThan, overflow);
+	alu alu_main(data_opA, data_opB, ALUop, shift_amt, clock, alu_out, isNotEqual, isLessThan, overflow);
 	cla branch_cla(.A(j1_branch), .B(sign_extension), .C0(1'b0), .P(), .G(), .S(branch_target), .overflow());
 	multdiv mult_div(multiplicand, multiplier, ctrl_MULT, ctrl_DIV, clock, multdiv_out, exception, multdiv_rdy);	
 	

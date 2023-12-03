@@ -1,13 +1,14 @@
-module alu(data_operandA, data_operandB, ctrl_ALUopcode, ctrl_shiftamt, data_result, isNotEqual, isLessThan, overflow);
+module alu(data_operandA, data_operandB, ctrl_ALUopcode, ctrl_shiftamt, clk, data_result, isNotEqual, isLessThan, overflow);
         
     input [31:0] data_operandA, data_operandB;
     input [4:0] ctrl_ALUopcode, ctrl_shiftamt;
+    input clk;
 
     output [31:0] data_result;
     output isNotEqual, isLessThan, overflow;
    
     // add your code here: 
-    wire [31:0] A, B, not_data_operandB;
+    wire [31:0] A, B, not_data_operandB, random_number;
     wire [31:0] cla_result, not_cla_result, shift_left_data, shift_right_data, A_or_B, A_and_B;
     wire one_hot, add_or_sub, compareA_B1, compareA_B2, isZero;
 
@@ -29,6 +30,9 @@ module alu(data_operandA, data_operandB, ctrl_ALUopcode, ctrl_shiftamt, data_res
     // CLA_module 
     cla carry_look_ahead(A, B, add_or_sub, A_or_B, A_and_B, cla_result, overflow);  
 
+    // RNG module
+    rng rand(clk, 1'b0, random_number); 
+
     //check if A = B
     or is_equal_to_zero(isNotEqual, cla_result[0], cla_result[1], cla_result[2], cla_result[3], cla_result[4],
 	cla_result[5], cla_result[6], cla_result[7], cla_result[8], cla_result[9], cla_result[10], cla_result[11],
@@ -41,7 +45,6 @@ module alu(data_operandA, data_operandB, ctrl_ALUopcode, ctrl_shiftamt, data_res
 
     assign select_less = {data_operandB[31], A[31]};
     mux_4 #(1) less_than_mux(isLessThan, select_less, cla_result[31], 1'b1, 1'b0, cla_result[31]); 
-
 
     // Shift Left Logical Module
     sll_32 shift_left(shift_left_data, ctrl_shiftamt, data_operandA);
@@ -58,7 +61,7 @@ module alu(data_operandA, data_operandB, ctrl_ALUopcode, ctrl_shiftamt, data_res
 			    shift_right_data,	// sra
 			    0,
 			    0,
-			    0,
+			    random_number,
 			    0,
 			    0,
 			    0,
