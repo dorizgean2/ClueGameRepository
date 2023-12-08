@@ -416,6 +416,7 @@ module VGAController(
        
 	end
 
+<<<<<<< HEAD
 	VGATimingGenerator #(
 		.HEIGHT(VIDEO_HEIGHT), // Use the standard VGA Values
 		.WIDTH(VIDEO_WIDTH))
@@ -428,6 +429,20 @@ module VGAController(
 		.vSync(vSync),		   // Set Generated V Signal
 		.x(x), 				   // X Coordinate (from left)
 		.y(y)); 			   // Y Coordinate (from top)	   
+=======
+	// VGATimingGenerator #(
+	// 	.HEIGHT(VIDEO_HEIGHT), // Use the standard VGA Values
+	// 	.WIDTH(VIDEO_WIDTH))
+	// Display( 
+	// 	.clk25(clk),  	   // 25MHz Pixel Clock
+	// 	.reset(reset),		   // Reset Signal
+	// 	.screenEnd(screenEnd), // High for one cycle when between two frames
+	// 	.active(active),	   // High when drawing pixels
+	// 	.hSync(hSync),  	   // Set Generated H Signal
+	// 	.vSync(vSync),		   // Set Generated V Signal
+	// 	.x(x), 				   // X Coordinate (from left)
+	// 	.y(y)); 			   // Y Coordinate (from top)	   
+>>>>>>> ed0da3f (new dice mem)
 
 	// Image Data to Map Pixel Location to Color Address
 	localparam 
@@ -489,4 +504,8 @@ module VGAController(
 	
 	assign {VGA_R, VGA_G, VGA_B} = show_dice ? dice_data : roll_dice_ques ? dice_prompt_data : square1 ? sprite_1_data : square2 ? sprite_2_data : square3 ? sprite_3_data : square4 ? sprite_4_data : colorOut;
 //	assign {VGA_R, VGA_G, VGA_B} = show_hall ? hall_data : show_study ? study_data : show_lounge ? lounge_data : show_kitchen ? kitchen_data : show_library ? library_data : show_billard ? billard_data : show_conservatory ? conservatory_data : show_ballroom ? ballroom_data : show_dining ? dining_data : colorOut;
+<<<<<<< HEAD
 endmodule
+=======
+endmodule
+>>>>>>> ed0da3f (new dice mem)

@@ -122,7 +122,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 	VGAController VGA(.clk(clock), .reset(reset), 
 	
 	    // FPGA Control
-	    .BTND(BTND_out), .BTNU(BTNU_out), .BTNL(BTNL_out), .BTNR(BTNR_out), .BTNC(BTNC_out), .SW(SW), 
+	    .BTND_in(BTND_out), .BTNU_in(BTNU_out), .BTNL_in(BTNL_out), .BTNR_in(BTNR_out), .BTNC_in(BTNC_out), .SW(SW), 
 	   
 	    // VGA Control
 	    .hSync(hSync), .vSync(vSync),

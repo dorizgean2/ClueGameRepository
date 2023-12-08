@@ -8,6 +8,7 @@ Cycle  11: Wrote 1 into register 17
 Cycle  13: Wrote 1 into register 25
 Cycle  15: Wrote 0 into register 8
 Cycle  19: Wrote 10 into register 16
+Cycle  20: Wrote 5 into register 19
 ============== Testing Mode ==============
 Reg  0:           0
 Reg  1:           0
@@ -28,7 +29,7 @@ Reg 15:        3000
 Reg 16:          10
 Reg 17:           1
 Reg 18:           0
-Reg 19:           0
+Reg 19:           5
 Reg 20:           0
 Reg 21:           0
 Reg 22:           0
