@@ -60,7 +60,15 @@ bne $in, $t2, dice_btn_left_press         # check if left button has been presse
 nop
 nop
 nop          
-addi $t5, $zero, 2
+addi $out, $zero, 2
+nop
+nop
+nop
+sw $out 0($t1)
+nop
+nop
+nop
+lw $t0, 0($t1)
 nop
 nop
 nop
