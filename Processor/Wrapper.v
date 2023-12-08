@@ -41,7 +41,14 @@ module Wrapper (
     inout ps2_clk,
     inout ps2_data);
 	
-	wire clock = clk;
+    wire clock; // 25MHz clock
+
+    // Clock divider 100 MHz -> 25 MHz
+    reg[1:0] pixCounter = 0;      // Pixel counter to divide the clock
+    assign clock = pixCounter[1]; // Set the clock high whenever the second bit (2) is high
+	always @(posedge clk) begin
+		pixCounter <= pixCounter + 1; // Since the reg is only 3 bits, it will reset every 8 cycles
+	end
 	
 	wire rwe, mwe;
 	wire[4:0] rd, rs1, rs2;
@@ -50,11 +57,13 @@ module Wrapper (
 		memAddr, memDataIn, memDataOut;
 	
 	// ADD YOUR MEMORY FILE HERE
-	localparam INSTR_FILE = "C:/Users/jtf45/Desktop/ClueGameRepository-main/Processor/Test Files/Memory Files/rng_testing.mem/";
+	localparam INSTR_FILE = "C:/Users/jtf45/Desktop/ClueGameRepository-main/Processor/Test Files/Memory Files/dice_roll_testing.mem/";
 	
 	wire need_BTNC, need_BTND, need_BTNL, need_BTNU, need_BTNR, need_output;
 	wire BTND_out, BTNU_out, BTNL_out, BTNR_out, BTNC_out, BTN_out;
-	wire [31:0] data_in, processor_out, from_VGA;
+	wire [31:0] processor_out, from_VGA;
+	
+	reg [31:0] from_processor, to_processor, data_in;
 	
 	assign need_BTNC = &({memAddr == 32'd1000, mwe == 1'b0}); 
 	assign need_BTNL =  &({memAddr == 32'd3000, mwe == 1'b0});
@@ -70,7 +79,6 @@ module Wrapper (
 	debounce_better_version debouncey3(.pb_1(BTNL), .clk(clock), .pb_out(BTNL_out));
 	debounce_better_version debouncey4(.pb_1(BTNR), .clk(clock), .pb_out(BTNR_out));
 	
-	assign data_in = need_BTNC ? BTNC_out : need_BTNL ? BTNL_out : need_BTNR ? BTNR_out : need_BTNU ? BTNU_out : need_BTND ? BTND_out : memDataOut;
 	assign processor_out = need_output ? memDataIn : 32'b0;
 
 	// Main VGA Control
@@ -122,5 +130,23 @@ module Wrapper (
 		.addr(memAddr[11:0]), 
 		.dataIn(memDataIn), 
 		.dataOut(memDataOut));
+		
+	always @(posedge clock) begin
+	   from_processor = processor_out;
+	   to_processor = from_VGA;
+	   
+	   if (need_BTNC == 1'b1) 
+	       data_in = BTNC_out;
+	   else if (need_BTND == 1'b1) 
+	       data_in = BTND_out;
+	   else if (need_BTNL == 1'b1) 
+	       data_in = BTNL_out;
+	   else if (need_BTNR == 1'b1) 
+	       data_in = BTNR_out;
+	   else if (need_BTNU == 1'b1) 
+	       data_in = BTNU_out;
+	   else 
+	       data_in = memDataOut;
+	end
 
 endmodule
