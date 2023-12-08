@@ -101,7 +101,7 @@ module Wrapper (
 									
 		// RAM
 		.wren(mwe), .address_dmem(memAddr), 
-		.data(memDataIn), .q_dmem(data_in)); 
+		.data(memDataIn), .q_dmem(data_write)); 
 	
 	// Instruction Memory (ROM)
 	ROM #(.MEMFILE({INSTR_FILE, ".mem"}))

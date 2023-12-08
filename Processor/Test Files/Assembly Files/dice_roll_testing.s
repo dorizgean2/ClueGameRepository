@@ -10,11 +10,11 @@ addi $t3, $zero, 1000		# r11 = 1000
 nop
 nop
 nop
-addi $t7, $zero, 4000       # r15 = 3000 (BTNL)
+addi $t7, $zero, 3000       # r15 = 3000 (BTNL)
 nop
 nop
 nop
-addi $t6, $zero, 3000       # r14 = 4000 (BTNR)
+addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
 nop
 nop
 nop
@@ -46,8 +46,7 @@ lw $t0, 0($t1)
 nop
 nop
 nop
-
-
+j end_test
 dice_btn_right_press:
 nop
 nop
@@ -72,3 +71,4 @@ lw $t0, 0($t1)
 nop
 nop
 nop
+end_test:
