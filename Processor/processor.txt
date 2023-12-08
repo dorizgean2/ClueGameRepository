@@ -1,6 +1,7 @@
 DFF_tri.v
 RAM.v
 ROM.v
+VGAController.v
 Wrapper.v
 Wrapper_tb.v
 alu.v
@@ -8,6 +9,7 @@ block_8bit.v
 cla.v
 cla_16.v
 counter_16.v
+debounce_better_version.v
 decoder_32.v
 dffe_ref.v
 dffe_ref_neg.v

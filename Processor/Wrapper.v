@@ -54,7 +54,7 @@ module Wrapper (
 	
 	wire need_BTNC, need_BTND, need_BTNL, need_BTNU, need_BTNR, need_output;
 	wire BTND_out, BTNU_out, BTNL_out, BTNR_out, BTNC_out, BTN_out;
-	wire [31:0] processor_out, from_VGA;
+	wire [31:0] data_in, processor_out, from_VGA;
 	
 	assign need_BTNC = &({memAddr == 32'd1000, mwe == 1'b0}); 
 	assign need_BTNL =  &({memAddr == 32'd3000, mwe == 1'b0});
@@ -64,30 +64,30 @@ module Wrapper (
 
 	assign need_output = &({memAddr == 32'd2000, mwe == 1'b1});
 	
-	debounce_better_version debouncey0(.pb_1(BTNC), .clk(clk), .pb_out(BTNC_out));
-	debounce_better_version debouncey1(.pb_1(BTND), .clk(clk), .pb_out(BTND_out));
-	debounce_better_version debouncey2(.pb_1(BTNU), .clk(clk), .pb_out(BTNU_out));
-	debounce_better_version debouncey3(.pb_1(BTNL), .clk(clk), .pb_out(BTNL_out));
-	debounce_better_version debouncey4(.pb_1(BTNR), .clk(clk), .pb_out(BTNR_out));
+	debounce_better_version debouncey0(.pb_1(BTNC), .clk(clock), .pb_out(BTNC_out));
+	debounce_better_version debouncey1(.pb_1(BTND), .clk(clock), .pb_out(BTND_out));
+	debounce_better_version debouncey2(.pb_1(BTNU), .clk(clock), .pb_out(BTNU_out));
+	debounce_better_version debouncey3(.pb_1(BTNL), .clk(clock), .pb_out(BTNL_out));
+	debounce_better_version debouncey4(.pb_1(BTNR), .clk(clock), .pb_out(BTNR_out));
 	
 	assign data_in = need_BTNC ? BTNC_out : need_BTNL ? BTNL_out : need_BTNR ? BTNR_out : need_BTNU ? BTNU_out : need_BTND ? BTND_out : memDataOut;
 	assign processor_out = need_output ? memDataIn : 32'b0;
 
-    // Main VGA Control
-    VGAController VGA(.clk(clock), .reset(reset), 
-    
-        // FPGA Control
-        .BTND(BTND_out), .BTNU(BTNU_out), .BTNL(BTNL_out), .BTNR(BTNR_out), .BTNC(BTNC_out), .SW(SW), 
-       
-        // VGA Control
-        .hSync(hSync), .vSync(vSync),
-        .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B),
-        
-        // PS2 Controller
-        .ps2_clk(ps2_clk), .ps2_data(ps2_data),
-        
-        .from_processor(processor_out), .to_processor(from_VGA));
-     
+	// Main VGA Control
+	VGAController VGA(.clk(clock), .reset(reset), 
+	
+	    // FPGA Control
+	    .BTND(BTND_out), .BTNU(BTNU_out), .BTNL(BTNL_out), .BTNR(BTNR_out), .BTNC(BTNC_out), .SW(SW), 
+	   
+	    // VGA Control
+	    .hSync(hSync), .vSync(vSync),
+	    .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B),
+	    
+	    // PS2 Controller
+	    .ps2_clk(ps2_clk), .ps2_data(ps2_data),
+	    
+	    .from_processor(processor_out), .to_processor(from_VGA));
+	 
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
 						
@@ -101,7 +101,7 @@ module Wrapper (
 									
 		// RAM
 		.wren(mwe), .address_dmem(memAddr), 
-		.data(memDataIn), .q_dmem(data_write)); 
+		.data(memDataIn), .q_dmem(data_in)); 
 	
 	// Instruction Memory (ROM)
 	ROM #(.MEMFILE({INSTR_FILE, ".mem"}))
