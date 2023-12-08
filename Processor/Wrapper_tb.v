@@ -163,15 +163,15 @@ module Wrapper_tb #(parameter FILE = "nop");
 	always
 		#10 clock = ~clock; 
 	always
-		#20 BTND = ~BTND;
+		#5 BTND = ~BTND;
 	always
-		#25 BTNC = ~BTNC;
+		#6 BTNC = ~BTNC;
 	always
-		#30 BTNL = ~BTNL; 
+		#7 BTNL = ~BTNL; 
 	always
-		#35 BTNR = ~BTNR; 
+		#8 BTNR = ~BTNR; 
 	always
-		#40 BTNU = ~BTNU;
+		#9 BTNU = ~BTNU;
 
 
 	//////////////////
