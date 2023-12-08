@@ -136,15 +136,15 @@ module Wrapper (
 	   to_processor = from_VGA;
 	   
 	   if (need_BTNC == 1'b1) 
-	       data_in = BTNC_out;
+	       data_in = BTNC;
 	   else if (need_BTND == 1'b1) 
-	       data_in = BTND_out;
+	       data_in = BTND;
 	   else if (need_BTNL == 1'b1) 
-	       data_in = BTNL_out;
+	       data_in = BTNL;
 	   else if (need_BTNR == 1'b1) 
-	       data_in = BTNR_out;
+	       data_in = BTNR;
 	   else if (need_BTNU == 1'b1) 
-	       data_in = BTNU_out;
+	       data_in = BTNU;
 	   else 
 	       data_in = memDataOut;
 	end

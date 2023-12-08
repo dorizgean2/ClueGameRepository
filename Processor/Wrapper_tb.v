@@ -170,33 +170,27 @@ module Wrapper_tb #(parameter FILE = "nop");
 
 	// Create the clock
 	always
-<<<<<<< Updated upstream
 		#10 clk = ~clk; 
 	always
-		#7 BTNL = ~BTNL; 
+		#20 BTNL = ~BTNL; 
 
 	always @(posedge clock) begin
 	   from_processor = processor_out;
 	   to_processor = from_VGA;
 
 	   if (need_BTNC == 1'b1) 
-	       data_in = BTNC_out;
+	       data_in = BTNC;
 	   else if (need_BTND == 1'b1) 
-	       data_in = BTND_out;
+	       data_in = BTND;
 	   else if (need_BTNL == 1'b1) 
-	       data_in = BTNL_out;
+	       data_in = BTNL;
 	   else if (need_BTNR == 1'b1) 
-	       data_in = BTNR_out;
+	       data_in = BTNR;
 	   else if (need_BTNU == 1'b1) 
-	       data_in = BTNU_out;
+	       data_in = BTNU;
 	   else 
 	       data_in = memDataOut;
 	end
-=======
-		#10 clock = ~clock; 
-	always
-		#7 BTNL = ~BTNL; 
->>>>>>> Stashed changes
 
 
 	//////////////////
