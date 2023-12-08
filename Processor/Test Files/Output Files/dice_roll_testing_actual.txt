@@ -1,8 +1,8 @@
-Cycle   7: Wrote 1 into register 10
-Cycle  11: Wrote 1000 into register 11
-Cycle  15: Wrote 3000 into register 15
-Cycle  19: Wrote 4000 into register 14
-Cycle  23: Wrote 2000 into register 9
+Cycle   4: Wrote 1 into register 10
+Cycle   5: Wrote 1000 into register 11
+Cycle   6: Wrote 3000 into register 15
+Cycle   7: Wrote 4000 into register 14
+Cycle   8: Wrote 2000 into register 9
 ============== Testing Mode ==============
 Reg  0:           0
 Reg  1:           0
