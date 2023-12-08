@@ -170,17 +170,10 @@ module Wrapper_tb #(parameter FILE = "nop");
 
 	// Create the clock
 	always
+<<<<<<< Updated upstream
 		#10 clk = ~clk; 
 	always
-		#5 BTND = ~BTND;
-	always
-		#6 BTNC = ~BTNC;
-	always
 		#7 BTNL = ~BTNL; 
-	always
-		#8 BTNR = ~BTNR; 
-	always
-		#9 BTNU = ~BTNU;
 
 	always @(posedge clock) begin
 	   from_processor = processor_out;
@@ -199,6 +192,11 @@ module Wrapper_tb #(parameter FILE = "nop");
 	   else 
 	       data_in = memDataOut;
 	end
+=======
+		#10 clock = ~clock; 
+	always
+		#7 BTNL = ~BTNL; 
+>>>>>>> Stashed changes
 
 
 	//////////////////
