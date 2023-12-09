@@ -10,7 +10,7 @@ dice_btn_left_press:        # only for dice roll prompt
 lw  $t8, 0($t7)		        # r24 = button output
 add $s1, $t8, $zero
 bne $s1, $t2, dice_btn_right_press		# check if right button has been pressed                                              
-addi $t9, $zero, 1                  # processor in = 1
+rng $t9, $zero, $zero                  # processor in = random generator
 sw $t9, 0($t1)
 lw $t0, 0($t1)
 
