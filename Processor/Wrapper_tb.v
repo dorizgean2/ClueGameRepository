@@ -172,7 +172,6 @@ module Wrapper_tb #(parameter FILE = "nop");
 	always
 		#10 clk = ~clk; 
 	always
-<<<<<<< Updated upstream
 		#20 BTNL = ~BTNL; 
 
 	always @(posedge clock) begin
@@ -192,9 +191,6 @@ module Wrapper_tb #(parameter FILE = "nop");
 	   else 
 	       data_in = memDataOut;
 	end
-=======
-		#7 BTNL = ~BTNL; 
->>>>>>> Stashed changes
 
 
 	//////////////////
