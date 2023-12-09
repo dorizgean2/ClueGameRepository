@@ -9,8 +9,14 @@ dice_btn_left_press:        		# only for dice roll prompt
 
 lw  $t8, 0($t7)		        	# r24 = BTNL input  
 add $s1, $t8, $zero
-bne $s1, $t2, dice_btn_right_press	# check if left button has been pressed                                 	
+bne $s1, $t2, dice_btn_right_press	# check if left button has been pressed  
+nop
+nop
+nop                               	
 rng $t9, $zero, $zero                  	# processor output = r25 = 1
+nop
+nop
+nop
 sw $t9, 0($t1)				# r9 = processor output = 1
 lw $t0, 0($t1)				# r8 = r9 = 1
 j end_test
