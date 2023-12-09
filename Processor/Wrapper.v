@@ -31,8 +31,8 @@ module Wrapper (
     input BTNU, 
     input BTNL, 
     input BTNR,
-    input BTNC,
-    input [3:0] SW,
+    input [4:0] SW,
+    input [4:0] LED,
     output hSync, 		// H Sync Signal
     output vSync, 		// Veritcal Sync Signal
     output[3:0] VGA_R,  // Red Signal Bits
@@ -43,8 +43,8 @@ module Wrapper (
 	
     wire clock; // 25MHz clock
 
-    // Clock divider 100 MHz -> 25 MHz
-    reg[1:0] pixCounter = 0;      // Pixel counter to divide the clock
+	// Clock divider 100 MHz -> 25 MHz
+	reg[1:0] pixCounter = 0;      // Pixel counter to divide the clock
     assign clock = pixCounter[1]; // Set the clock high whenever the second bit (2) is high
 	always @(posedge clk) begin
 		pixCounter <= pixCounter + 1; // Since the reg is only 3 bits, it will reset every 8 cycles
@@ -57,15 +57,14 @@ module Wrapper (
 		memAddr, memDataIn, memDataOut;
 	
 	// ADD YOUR MEMORY FILE HERE
-	localparam INSTR_FILE = "C:/Users/jtf45/Desktop/ClueGameRepository-main/Processor/Test Files/Memory Files/dice_roll_testing.mem/";
+	localparam INSTR_FILE = "dice_roll_testing";
 	
-	wire need_BTNC, need_BTND, need_BTNL, need_BTNU, need_BTNR, need_output;
-	wire BTND_out, BTNU_out, BTNL_out, BTNR_out, BTNC_out, BTN_out;
+	wire need_BTND, need_BTNL, need_BTNU, need_BTNR, need_output;
+	wire BTND_out, BTNU_out, BTNL_out, BTNR_out, BTN_out;
 	wire [31:0] processor_out, from_VGA;
 	
-	reg [31:0] from_processor, to_processor, data_in;
-	
-	assign need_BTNC = &({memAddr == 32'd1000, mwe == 1'b0}); 
+	reg [31:0] to_VGA = 0, data_in = 0, to_processor = 0;
+	 
 	assign need_BTNL =  &({memAddr == 32'd3000, mwe == 1'b0});
 	assign need_BTNR =  &({memAddr == 32'd4000, mwe == 1'b0});
 	assign need_BTNU =  &({memAddr == 32'd5000, mwe == 1'b0});
@@ -73,7 +72,6 @@ module Wrapper (
 
 	assign need_output = &({memAddr == 32'd2000, mwe == 1'b1});
 	
-	debounce_better_version debouncey0(.pb_1(BTNC), .clk(clock), .pb_out(BTNC_out));
 	debounce_better_version debouncey1(.pb_1(BTND), .clk(clock), .pb_out(BTND_out));
 	debounce_better_version debouncey2(.pb_1(BTNU), .clk(clock), .pb_out(BTNU_out));
 	debounce_better_version debouncey3(.pb_1(BTNL), .clk(clock), .pb_out(BTNL_out));
@@ -85,7 +83,8 @@ module Wrapper (
 	VGAController VGA(.clk(clock), .reset(reset), 
 	
 	    // FPGA Control
-	    .BTND(BTND_out), .BTNU(BTNU_out), .BTNL(BTNL_out), .BTNR(BTNR_out), .BTNC(BTNC_out), .SW(SW), 
+	    .BTND_in(BTND_out), .BTNU_in(BTNU_out), .BTNL_in(BTNL_out), .BTNR_in(BTNR_out), 
+	    .LED(LED), .SW(SW), 
 	   
 	    // VGA Control
 	    .hSync(hSync), .vSync(vSync),
@@ -94,7 +93,7 @@ module Wrapper (
 	    // PS2 Controller
 	    .ps2_clk(ps2_clk), .ps2_data(ps2_data),
 	    
-	    .from_processor(processor_out), .to_processor(from_VGA));
+	    .from_processor(to_VGA), .to_processor(from_VGA));
 	 
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
@@ -132,12 +131,10 @@ module Wrapper (
 		.dataOut(memDataOut));
 		
 	always @(posedge clock) begin
-	   from_processor = processor_out;
+	   to_VGA = processor_out;
 	   to_processor = from_VGA;
 	   
-	   if (need_BTNC == 1'b1) 
-	       data_in = BTNC;
-	   else if (need_BTND == 1'b1) 
+	   if (need_BTND == 1'b1) 
 	       data_in = BTND;
 	   else if (need_BTNL == 1'b1) 
 	       data_in = BTNL;
