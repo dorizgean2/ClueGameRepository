@@ -3,6 +3,12 @@ Cycle   5: Wrote 1000 into register 11
 Cycle   6: Wrote 3000 into register 15
 Cycle   7: Wrote 4000 into register 14
 Cycle   8: Wrote 2000 into register 9
+Cycle   9: Wrote 1 into register 24
+Cycle  11: Wrote 1 into register 17
+Cycle  13: Wrote 1 into register 25
+Cycle  15: Wrote 0 into register 8
+Cycle  19: Wrote 10 into register 16
+Cycle  20: Wrote 5 into register 19
 ============== Testing Mode ==============
 Reg  0:           0
 Reg  1:           0
@@ -20,16 +26,16 @@ Reg 12:           0
 Reg 13:           0
 Reg 14:        4000
 Reg 15:        3000
-Reg 16:           0
-Reg 17:           0
+Reg 16:          10
+Reg 17:           1
 Reg 18:           0
-Reg 19:           0
+Reg 19:           5
 Reg 20:           0
 Reg 21:           0
 Reg 22:           0
 Reg 23:           0
-Reg 24:           0
-Reg 25:           0
+Reg 24:           1
+Reg 25:           1
 Reg 26:           0
 Reg 27:           0
 Reg 28:           0
