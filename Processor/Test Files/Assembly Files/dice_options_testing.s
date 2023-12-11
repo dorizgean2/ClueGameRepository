@@ -34,6 +34,7 @@ add $s2, $t8, $zero
 bne $s2, $t2, dice_btn_left_press         # check if left button has been pressed
 addi $t9, $zero, 200                      # accusation prompts up
 sw $t9, 0($t1)
+j end_test
 
 check_directions_button:
 add $t8, $zero, $zero
@@ -77,6 +78,40 @@ j accusations
 
 accusations:                            
 bne $t9, $zero, end_test    
+
+# continue_game:
+# lw $s2, 0($t7)          
+# nop
+# nop
+# nop
+# lw $s3, 0($t6)
+# nop
+# nop
+# nop
+# lw $s4, 0($t5)
+# nop
+# nop
+# nop
+# lw $s5, 0($t4)
+# nop
+# nop
+# nop
+# check_moves:
+# sub $s7, $s0, $s2
+# sub $s7, $s0, $s3
+# sub $s7, $s0, $s4
+# sub $s7, $s0, $s5
+# bne $s7, $zero, continue_game     # if player still has remaining valid moves, continue until they have reached the max number/zero
+# reset:  
+# add $t9, $zero, $zero
+# add $t8, $zero, $zero
+# add $s2, $zero, $zero
+# add $s3, $zero, $zero          
+# add $s4, $zero, $zero
+# add $s5, $zero, $zero
+# add $s6, $zero, $zero
+# j dice_roll_prompt
+
 
 end_test:
 nop
