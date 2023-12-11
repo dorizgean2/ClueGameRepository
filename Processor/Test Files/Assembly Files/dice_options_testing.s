@@ -1,10 +1,5 @@
 main:
 addi $t2, $zero, 1		# r10 = 1 
-addi $t3, $zero, 1000		# r11 = 1000 
-addi $t7, $zero, 3000       # r15 = 3000 (BTNL)
-addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
-addi $t5, $zero, 5000       # r13 = 5000 (BTNU)
-addi $t4, $zero, 6000      # r12 = 6000 (BTND)
 addi $t1, $zero, 2000		# r9 = 2000 (processor_input)
 rng $s7, $zero, $zero
 addi $t9, $s7, 100
@@ -12,6 +7,7 @@ dice_roll_prompt:
 addi $t9, $zero, 201
 
 dice_btn_left_press:        # only for dice roll prompt
+addi $t7, $zero, 3000       # r15 = 3000 (BTNL)
 add $t8, $zero, $zero
 sw $t9, 0($t1)
 lw  $t8, 0($t7)		        # r24 = button output
@@ -28,15 +24,29 @@ sw $t9, 0($t1)
 j dice_roll_prompt
 
 dice_btn_right_press:
+addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
+addi $t3, $zero, 7000            # r12 = 7000 (Red Button)
 add $t8, $zero, $zero
 lw $t8, 0($t6)
 add $s2, $t8, $zero
 bne $s2, $t2, dice_btn_left_press         # check if left button has been pressed
-addi $t9, $zero, 200                      # accusation prompts up
+addi $t9, $zero, 200                      # accuse someone prompts up
 sw $t9, 0($t1)
 lw $t0, 0($t1)
+add $t8, $zero, $zero
+read_red_button:
+nop
+nop
+nop 
+lw $t8, 0($t3)                  # read red button
+nop
+nop
+nop
+bne $t8, $t2, read_red_button:
+
 
 check_directions_button:
+addi $t5, $zero, 5000       # r13 = 5000 (BTNU)
 add $t8, $zero, $zero
 lw  $t8, 0($t5)           # check if up button has been pressed
 add $s3, $t8, $zero
@@ -47,6 +57,7 @@ lw $t0, 0($t1)
 j accusations
 
 btn_down_press:
+addi $t4, $zero, 6000      # r12 = 6000 (BTND)
 add $t8, $zero, $zero
 lw $t8, 0($t4)          # check if down button has been pressed
 add $s4, $t8, $zero 
@@ -57,6 +68,7 @@ lw $t0, 0($t1)
 j accusations
 
 btn_left_press:
+addi $t7, $zero, 3000       # r15 = 3000 (BTNL)
 add $t8, $zero, $zero
 lw $t8, 0($t7)
 add $s5, $t8, $zero
@@ -67,6 +79,7 @@ lw $t0, 0($t1)
 j accusations
 
 btn_right_press:
+addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
 add $t8, $zero, $zero
 lw $t8, 0($t6)
 add $s6, $t8, $zero
