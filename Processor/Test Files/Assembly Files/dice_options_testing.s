@@ -6,6 +6,8 @@ addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
 addi $t5, $zero, 5000       # r13 = 5000 (BTNU)
 addi $t4, $zero, 6000      # r12 = 6000 (BTND)
 addi $t1, $zero, 2000		# r9 = 2000 (processor_input)
+rng $s7, $zero, $zero
+addi $t9, $s7, 100
 dice_roll_prompt:
 addi $t9, $zero, 201
 
@@ -43,7 +45,7 @@ j accusations
 btn_down_press:
 lw $t8, 0($t4)          # check if down button has been pressed
 add $s4, $t8, $zero 
-bne $s4, $t2, btn_left_press
+bne $s4, $t2, check_directions_button
 addi $t9, $zero, 3      # down button has been pressed -> processor_t9put = 2
 sw $t9, 0($t1)
 lw $t0, 0($t1)
