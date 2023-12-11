@@ -6,9 +6,10 @@ addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
 addi $t5, $zero, 5000       # r13 = 5000 (BTNU)
 addi $t4, $zero, 6000      # r12 = 6000 (BTND)
 addi $t1, $zero, 2000		# r9 = 2000 (processor_input)
+dice_roll_prompt:
+addi $t9, $zero, 201
 
 dice_btn_left_press:        # only for dice roll prompt
-addi $t9, $zero, 201
 sw $t9, 0($t1)
 lw  $t8, 0($t7)		        # r24 = button output
 add $s1, $t8, $zero
@@ -21,20 +22,19 @@ nop
 nop
 nop
 sw $t9, 0($t1)
-lw $t0, 0($t1)
-j end_test
+j dice_roll_prompt
 
 dice_btn_right_press:
 lw $t8, 0($t6)
 add $s2, $t8, $zero
 bne $s2, $t2, dice_btn_left_press         # check if left button has been pressed
-addi $t9, $zero, 200
+addi $t9, $zero, 200                      # accusation prompts up
 sw $t9, 0($t1)
 nop
 nop
 nop
 
-accusations: 
+accusations:                            
 nop
 nop
 nop
@@ -79,10 +79,6 @@ sw $t9, 0($t1)
 lw $t0, 0($t1)
 j accusations 
 
-
-end_test:
-addi $s7, $zero, 4
-nop
 
 
 
