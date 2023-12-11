@@ -84,7 +84,9 @@ addi $t9, $zero, 5      # right button has been pressed -> processor_t9put = 4
 sw $t9, 0($t1)
 j accusations 
 
-accusations:                            
+accusations:                 
+addi $t9, $zero, 202
+sw $t9, 0($t1)           
 bne $t9, $zero, end_test    
 
 # continue_game:
