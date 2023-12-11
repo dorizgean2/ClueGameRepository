@@ -79,7 +79,8 @@ sw $t9, 0($t1)
 lw $t0, 0($t1)
 j accusations 
 
-
+end_test:
+nop
 
 
 
