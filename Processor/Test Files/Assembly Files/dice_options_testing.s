@@ -38,14 +38,16 @@ nop
 nop
 nop 
 lw $t8, 0($t3)                  # read red button
+add $s3, $t8, $zero
 nop
 nop
 nop
-bne $t8, $t2, read_red_button
+bne $s3, $t2, read_red_button
 addi $t9, $zero, 202
 
 check_directions_button:
 addi $t5, $zero, 5000       # r13 = 5000 (BTNU)
+add $s3, $zero, $zero
 add $t8, $zero, $zero
 lw  $t8, 0($t5)           # check if up button has been pressed
 add $s3, $t8, $zero
