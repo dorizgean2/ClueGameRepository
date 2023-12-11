@@ -10,7 +10,7 @@ addi $t5, $zero, 10		# r13 = 10
 nop
 nop
 nop
-addi $t3, $zero, 1000		# r11 = 1000 = button address
+addi $t3, $zero, 3000		# r11 = 3000 = button address
 nop
 nop
 nop
@@ -19,19 +19,19 @@ btn_test:
 nop
 nop
 nop
-lw   $in, 0($t3)		# r24 = button input
+lw   $t8, 0($t3)		# r24 = button input
 nop
 nop
 nop
-bne  $in, $t2, btn_test		# continuing looping until button is pressed
+bne  $t8, $t2, btn_test		# continuing looping until button is pressed
 nop
 nop
 nop
-rng  $out, $zero, $zero 	# r25 = processor output = random number
+rng  $t9, $zero, $zero 	# r25 = processor output = random number
 nop
 nop
 nop
-sw   $out, 0($t1)		# address 2000 = processor output
+sw   $t9, 0($t1)		# address 2000 = processor output
 nop
 nop
 nop
@@ -43,11 +43,11 @@ add  $t4, $t4, $t0		# check if data is changing to 1
 nop
 nop
 nop
-add  $in, $zero, $zero		# r24 = 0
+add  $t8, $zero, $zero		# r24 = 0
 nop
 nop
 nop
-add  $out, $zero, $zero		# r25 = 0
+add  $t9, $zero, $zero		# r25 = 0
 nop
 nop
 nop

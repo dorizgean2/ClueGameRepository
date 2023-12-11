@@ -90,19 +90,18 @@ module Wrapper_tb #(parameter FILE = "nop");
 	
 	reg BTND = 0, BTNU = 0, BTNL = 0, BTNR = 0, BTNC = 0;
 
-	wire [3:0] SW = {1'b1, 3'b0}; 
+	wire [4:0] SW = {5'b0}; 
 	wire [3:0] VGA_R, VGA_B, VGA_G;
 	wire ps2_clk = 0, ps2_data = 0;
 	wire hsync, vsync;
 
-
-	wire need_BTNC, need_BTND, need_BTNL, need_BTNU, need_BTNR, need_output;
-	wire BTND_out, BTNU_out, BTNL_out, BTNR_out, BTNC_out, BTN_out; 
+	wire need_BTND, need_BTNL, need_BTNU, need_BTNR, need_output;
+	wire BTND_out, BTNU_out, BTNL_out, BTNR_out, BTN_out;
 	wire [31:0] processor_out, from_VGA;
-
-	reg [31:0] from_processor, to_processor, data_in;
 	
-	assign need_BTNC =  &({memAddr == 32'd1000, mwe == 1'b0}); 
+	reg [31:0] to_VGA = 0, data_in = 0, to_processor = 0;
+
+	
 	assign need_BTNL =  &({memAddr == 32'd3000, mwe == 1'b0});
 	assign need_BTNR =  &({memAddr == 32'd4000, mwe == 1'b0});
 	assign need_BTNU =  &({memAddr == 32'd5000, mwe == 1'b0});
@@ -110,7 +109,6 @@ module Wrapper_tb #(parameter FILE = "nop");
 
 	assign need_output = &({memAddr == 32'd2000, mwe == 1'b1});
 	
-	debounce_better_version debouncey0(.pb_1(BTNC), .clk(clock), .pb_out(BTNC_out));
 	debounce_better_version debouncey1(.pb_1(BTND), .clk(clock), .pb_out(BTND_out));
 	debounce_better_version debouncey2(.pb_1(BTNU), .clk(clock), .pb_out(BTNU_out));
 	debounce_better_version debouncey3(.pb_1(BTNL), .clk(clock), .pb_out(BTNL_out));
@@ -122,7 +120,8 @@ module Wrapper_tb #(parameter FILE = "nop");
 	VGAController VGA(.clk(clock), .reset(reset), 
 	
 	    // FPGA Control
-	    .BTND_in(BTND_out), .BTNU_in(BTNU_out), .BTNL_in(BTNL_out), .BTNR_in(BTNR_out), .BTNC_in(BTNC_out), .SW(SW), 
+	    .BTND_in(BTND_out), .BTNU_in(BTNU_out), .BTNL_in(BTNL_out), .BTNR_in(BTNR_out), 
+	    .SW(SW), 
 	   
 	    // VGA Control
 	    .hSync(hSync), .vSync(vSync),
@@ -131,7 +130,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 	    // PS2 Controller
 	    .ps2_clk(ps2_clk), .ps2_data(ps2_data),
 	    
-	    .from_processor(processor_out), .to_processor(from_VGA));
+	    .from_processor(to_VGA), .to_processor(from_VGA));
 	 
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
@@ -158,7 +157,7 @@ module Wrapper_tb #(parameter FILE = "nop");
 	regfile RegisterFile(.clock(clock), 
 		.ctrl_writeEnable(rwe), .ctrl_reset(reset), 
 		.ctrl_writeReg(rd),
-		.ctrl_readRegA(rs1_in), .ctrl_readRegB(rs2), 
+		.ctrl_readRegA(rs1), .ctrl_readRegB(rs2), 
 		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB));
 						
 	// Processor Memory (RAM)
@@ -167,20 +166,12 @@ module Wrapper_tb #(parameter FILE = "nop");
 		.addr(memAddr[11:0]), 
 		.dataIn(memDataIn), 
 		.dataOut(memDataOut));
-
-	// Create the clock
-	always
-		#10 clk = ~clk; 
-	always
-		#20 BTNL = ~BTNL; 
-
+		
 	always @(posedge clock) begin
-	   from_processor = processor_out;
+	   to_VGA = processor_out;
 	   to_processor = from_VGA;
-
-	   if (need_BTNC == 1'b1) 
-	       data_in = BTNC;
-	   else if (need_BTND == 1'b1) 
+	   
+	   if (need_BTND == 1'b1) 
 	       data_in = BTND;
 	   else if (need_BTNL == 1'b1) 
 	       data_in = BTNL;
@@ -193,11 +184,19 @@ module Wrapper_tb #(parameter FILE = "nop");
 	end
 
 
+
+	always 
+		#10 clk = ~clk;
+	always 
+		#20 BTNL = ~BTNL;
+		
+
 	//////////////////
 	// Test Harness //
 	//////////////////
 
 	initial begin
+		BTNL = 0;
 		// Check if the parameter exists
 		if(FILE == 0) begin
 			$display("Please specify the test");

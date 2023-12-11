@@ -1,2 +1,6 @@
+Reg:  9 Expected:        2000 Actual:           0
+Reg: 10 Expected:           1 Actual:           0
+Reg: 11 Expected:        1000 Actual:           0
 Reg: 12 Expected:          10 Actual:           0
+Reg: 13 Expected:          10 Actual:           0
 Reg: 14 Expected:           1 Actual:           0

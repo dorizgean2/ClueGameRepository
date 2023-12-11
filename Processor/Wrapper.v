@@ -32,7 +32,6 @@ module Wrapper (
     input BTNL, 
     input BTNR,
     input [4:0] SW,
-    input [4:0] LED,
     output hSync, 		// H Sync Signal
     output vSync, 		// Veritcal Sync Signal
     output[3:0] VGA_R,  // Red Signal Bits
@@ -84,7 +83,7 @@ module Wrapper (
 	
 	    // FPGA Control
 	    .BTND_in(BTND_out), .BTNU_in(BTNU_out), .BTNL_in(BTNL_out), .BTNR_in(BTNR_out), 
-	    .LED(LED), .SW(SW), 
+	    .SW(SW), 
 	   
 	    // VGA Control
 	    .hSync(hSync), .vSync(vSync),

@@ -446,34 +446,6 @@ module VGAController(
        
 	end
 
-<<<<<<< HEAD
-	VGATimingGenerator #(
-		.HEIGHT(VIDEO_HEIGHT), // Use the standard VGA Values
-		.WIDTH(VIDEO_WIDTH))
-	Display( 
-		.clk25(clk),  	   // 25MHz Pixel Clock
-		.reset(reset),		   // Reset Signal
-		.screenEnd(screenEnd), // High for one cycle when between two frames
-		.active(active),	   // High when drawing pixels
-		.hSync(hSync),  	   // Set Generated H Signal
-		.vSync(vSync),		   // Set Generated V Signal
-		.x(x), 				   // X Coordinate (from left)
-		.y(y)); 			   // Y Coordinate (from top)	   
-=======
-	// VGATimingGenerator #(
-	// 	.HEIGHT(VIDEO_HEIGHT), // Use the standard VGA Values
-	// 	.WIDTH(VIDEO_WIDTH))
-	// Display( 
-	// 	.clk25(clk),  	   // 25MHz Pixel Clock
-	// 	.reset(reset),		   // Reset Signal
-	// 	.screenEnd(screenEnd), // High for one cycle when between two frames
-	// 	.active(active),	   // High when drawing pixels
-	// 	.hSync(hSync),  	   // Set Generated H Signal
-	// 	.vSync(vSync),		   // Set Generated V Signal
-	// 	.x(x), 				   // X Coordinate (from left)
-	// 	.y(y)); 			   // Y Coordinate (from top)	   
->>>>>>> 282ec72 (other button testing)
-
 	// Image Data to Map Pixel Location to Color Address
 	localparam 
 		PIXEL_COUNT = VIDEO_WIDTH*VIDEO_HEIGHT, 	             // Number of pixels on the screen
@@ -485,33 +457,9 @@ module VGAController(
 	wire[PIXEL_ADDRESS_WIDTH-1:0] imgAddress;  	 // Image address for the image data
 	wire[PALETTE_ADDRESS_WIDTH-1:0] colorAddr; 	 // Color address for the color palette
 	assign imgAddress = x + 640*y;				 // Address calculated coordinate
-
-	RAM #(		
-		.DEPTH(PIXEL_COUNT), 				     // Set RAM depth to contain every pixel
-		.DATA_WIDTH(PALETTE_ADDRESS_WIDTH),      // Set data width according to the color palette
-		.ADDRESS_WIDTH(PIXEL_ADDRESS_WIDTH),     // Set address with according to the pixel count
-		.MEMFILE({FILES_PATH, "image.mem"})) // Memory initialization
-	ImageData(
-		.clk(clk), 						 // Falling edge of the 100 MHz clk
-		.addr(imgAddress),					 // Image data address
-		.dataOut(colorAddr),				 // Color palette address
-		.wEn(1'b0)); 						 // We're always reading
-
+	
 	// Color Palette to Map Color Address to 12-Bit Color
 	wire[BITS_PER_COLOR-1:0] colorData; // 12-bit color data at current pixel
-
-	RAM #(
-		.DEPTH(PALETTE_COLOR_COUNT), 		       // Set depth to contain every color		
-		.DATA_WIDTH(BITS_PER_COLOR), 		       // Set data width according to the bits per color
-		.ADDRESS_WIDTH(PALETTE_ADDRESS_WIDTH),     // Set address width according to the color count
-		.MEMFILE({FILES_PATH, "colors.mem"}))  // Memory initialization
-	ColorPalette(
-		.clk(clk), 							   	   // Rising edge of the 100 MHz clk
-		.addr(colorAddr),					       // Address from the ImageData RAM
-		.dataOut(colorData),				       // Color at current pixel
-		.wEn(1'b0)); 						       // We're always reading
-	
-
     wire[PIXEL_ADDRESS_WIDTH-1:0] sprite_1_Address, sprite_2_Address, sprite_3_Address, sprite_4_Address, dice_roll_Address, dice_Address;  
     wire[PIXEL_ADDRESS_WIDTH-1:0] dice1_Address, dice2_Address, dice3_Address, dice4_Address, dice5_Address, dice6_Address, clue_Address;
     wire[PALETTE_ADDRESS_WIDTH-1:0] sprite_1_colorAddr, sprite_2_colorAddr, sprite_3_colorAddr, sprite_4_colorAddr, dice_prompt_colorAddr, dice_colorAddr;
@@ -534,50 +482,27 @@ module VGAController(
     
     assign dice_Address = dice1 ? dice1_Address : dice2 ? dice2_Address : dice3 ? dice3_Address : dice4 ? dice4_Address : dice5 ? dice5_Address : dice6_Address;
 
-    RAM #(.DATA_WIDTH(PALETTE_ADDRESS_WIDTH), .ADDRESS_WIDTH(PIXEL_ADDRESS_WIDTH), .DEPTH(400), .MEMFILE({FILES_PATH, "red_sprite_image.mem"})) ram_sprites1(.clk(clk), .wEn(1'b0), .addr(sprite_1_Address), .dataOut(sprite_1_colorAddr));
-    RAM #(.DATA_WIDTH(12), .ADDRESS_WIDTH(PALETTE_ADDRESS_WIDTH), .DEPTH(256), .MEMFILE({FILES_PATH, "red_sprite_colors.mem"})) ram_sprites_color1(.clk(clk), .wEn(1'b0), .addr(sprite_1_colorAddr), .dataOut(sprite_1_data));
-    
-    RAM #(.DATA_WIDTH(PALETTE_ADDRESS_WIDTH), .ADDRESS_WIDTH(PIXEL_ADDRESS_WIDTH), .DEPTH(400), .MEMFILE({FILES_PATH,"purple_sprite_image.mem"})) ram_sprites2(.clk(clk), .wEn(1'b0), .addr(sprite_2_Address), .dataOut(sprite_2_colorAddr));
-    RAM #(.DATA_WIDTH(12), .ADDRESS_WIDTH(PALETTE_ADDRESS_WIDTH), .DEPTH(256), .MEMFILE({FILES_PATH, "purple_sprite_colors.mem"})) ram_sprites_color2(.clk(clk), .wEn(1'b0), .addr(sprite_2_colorAddr), .dataOut(sprite_2_data));
-   
-    RAM #(.DATA_WIDTH(PALETTE_ADDRESS_WIDTH), .ADDRESS_WIDTH(PIXEL_ADDRESS_WIDTH), .DEPTH(400), .MEMFILE({FILES_PATH, "green_sprite_image.mem"})) ram_sprites3(.clk(clk), .wEn(1'b0), .addr(sprite_3_Address), .dataOut(sprite_3_colorAddr));
-    RAM #(.DATA_WIDTH(12), .ADDRESS_WIDTH(PALETTE_ADDRESS_WIDTH), .DEPTH(256), .MEMFILE({FILES_PATH, "green_sprite_colors.mem"})) ram_sprites_color3(.clk(clk), .wEn(1'b0), .addr(sprite_3_colorAddr), .dataOut(sprite_3_data));
-    
-    RAM #(.DATA_WIDTH(PALETTE_ADDRESS_WIDTH), .ADDRESS_WIDTH(PIXEL_ADDRESS_WIDTH), .DEPTH(400), .MEMFILE({FILES_PATH, "pink_sprite_image.mem"})) ram_sprites4(.clk(clk), .wEn(1'b0), .addr(sprite_4_Address), .dataOut(sprite_4_colorAddr));
-    RAM #(.DATA_WIDTH(12), .ADDRESS_WIDTH(PALETTE_ADDRESS_WIDTH), .DEPTH(256), .MEMFILE({FILES_PATH, "pink_sprite_colors.mem"})) ram_sprites_color4(.clk(clk), .wEn(1'b0), .addr(sprite_4_colorAddr), .dataOut(sprite_4_data));
-    
-    // prompts
-    RAM #(.DATA_WIDTH(PALETTE_ADDRESS_WIDTH), .ADDRESS_WIDTH(14), .DEPTH(212*58), .MEMFILE({FILES_PATH, "dice_prompt_image.mem"})) dice_prompt(.clk(clk), .wEn(1'b0), .addr(dice_roll_Address), .dataOut(dice_prompt_colorAddr));
-    RAM #(.DATA_WIDTH(12), .ADDRESS_WIDTH(PALETTE_ADDRESS_WIDTH), .DEPTH(256), .MEMFILE({FILES_PATH, "dice_prompt_colors.mem"})) dice_prompt_colors(.clk(clk), .wEn(1'b0), .addr(dice_prompt_colorAddr), .dataOut(dice_prompt_data));
-    
-    RAM #(.DATA_WIDTH(PALETTE_ADDRESS_WIDTH), .ADDRESS_WIDTH(15), .DEPTH(295*58), .MEMFILE({FILES_PATH, "dice_image.mem"})) dice_image(.clk(clk), .wEn(1'b0), .addr(dice_Address), .dataOut(dice_colorAddr));
-    RAM #(.DATA_WIDTH(12), .ADDRESS_WIDTH(PALETTE_ADDRESS_WIDTH), .DEPTH(256), .MEMFILE({FILES_PATH, "dice_colors.mem"})) dice_image_colors(.clk(clk), .wEn(1'b0), .addr(dice_colorAddr), .dataOut(dice_data));
 	// Assign to output color from register if active
 	wire[BITS_PER_COLOR-1:0] colorOut; 			  // Output color 
 	
 	assign colorOut = active ? colorData : 12'd0; // When not active, output black
 
-	assign hall_data = 12'hff0000;
-	assign study_data = 12'hff0000;
-	assign lounge_data = 12'hff0000;
-	assign kitchen_data = 12'hff0000;
-	assign library_data = 12'hff0000;
-	assign billard_data = 12'hff0000;
-	assign conservatory_data = 12'hff0000;
-	assign billard_data = 12'hff0000;
-	assign dining_data = 12'hff0000;
+	assign hall_data = 12'd1000;
+	assign study_data = 12'd1000;
+	assign lounge_data = 12'd1000;
+	assign kitchen_data = 12'd1000;
+	assign library_data = 12'd1000;
+	assign billard_data = 12'd1000;
+	assign conservatory_data = 12'd1000;
+	assign billard_data = 12'd1000;
+	assign dining_data = 12'd1000;
 	
 	
 //	wire random;
 //	assign random = 1'b1;
 	// Quickly assign the output colors to their channels using active
 	
-<<<<<<< HEAD
     assign game = show_dice ? dice_data : roll_dice_ques ? dice_prompt_data : square1 ? sprite_1_data : square2 ? sprite_2_data : square3 ? sprite_3_data : square4 ? sprite_4_data : colorOut;
     assign rooms = show_hall ? hall_data : show_study ? study_data : show_lounge ? lounge_data : show_kitchen ? kitchen_data : show_library ? library_data : show_billard ? billard_data : show_conservatory ? conservatory_data : show_ballroom ? ballroom_data : show_dining ? dining_data : colorOut;
     assign {VGA_R, VGA_G, VGA_B} = show_rooms ? rooms : game;
-=======
-	assign {VGA_R, VGA_G, VGA_B} = show_dice ? dice_data : roll_dice_ques ? dice_prompt_data : square1 ? sprite_1_data : square2 ? sprite_2_data : square3 ? sprite_3_data : square4 ? sprite_4_data : colorOut;
-//	assign {VGA_R, VGA_G, VGA_B} = show_hall ? hall_data : show_study ? study_data : show_lounge ? lounge_data : show_kitchen ? kitchen_data : show_library ? library_data : show_billard ? billard_data : show_conservatory ? conservatory_data : show_ballroom ? ballroom_data : show_dining ? dining_data : colorOut;
->>>>>>> 282ec72 (other button testing)
 endmodule
