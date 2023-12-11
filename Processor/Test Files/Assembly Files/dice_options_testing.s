@@ -30,18 +30,6 @@ add $s2, $t8, $zero
 bne $s2, $t2, dice_btn_left_press         # check if left button has been pressed
 addi $t9, $zero, 200                      # accusation prompts up
 sw $t9, 0($t1)
-nop
-nop
-nop
-
-accusations:                            
-nop
-nop
-nop
-bne $t9, $zero, end_test    
-nop
-nop
-nop
 
 check_directions_button:
 lw  $t8, 0($t5)           # check if up button has been pressed
@@ -78,6 +66,9 @@ addi $t9, $zero, 5      # right button has been pressed -> processor_t9put = 4
 sw $t9, 0($t1)
 lw $t0, 0($t1)
 j accusations 
+
+accusations:                            
+bne $t9, $zero, end_test    
 
 end_test:
 nop
