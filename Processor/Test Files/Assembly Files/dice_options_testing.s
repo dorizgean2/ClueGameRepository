@@ -8,6 +8,8 @@ addi $t4, $zero, 6000      # r12 = 6000 (BTND)
 addi $t1, $zero, 2000		# r9 = 2000 (processor_input)
 
 dice_btn_left_press:        # only for dice roll prompt
+addi $t9, $zero, 201
+sw $t9, 0($t1)
 lw  $t8, 0($t7)		        # r24 = button output
 add $s1, $t8, $zero
 bne $s1, $t2, dice_btn_right_press		# check if right button has been pressed 
@@ -26,9 +28,20 @@ dice_btn_right_press:
 lw $t8, 0($t6)
 add $s2, $t8, $zero
 bne $s2, $t2, dice_btn_left_press         # check if left button has been pressed
+addi $t9, $zero, 200
+sw $t9, 0($t1)
+nop
+nop
+nop
 
 accusations: 
+nop
+nop
+nop
 bne $t9, $zero, end_test    
+nop
+nop
+nop
 
 check_directions_button:
 lw  $t8, 0($t5)           # check if up button has been pressed
@@ -69,7 +82,17 @@ j accusations
 
 end_test:
 addi $s7, $zero, 4
+nop
 
 
 
 
+# addi $sp, $zero, 500
+# addi $sp, $sp, -8
+# sw $t2, 0($sp)
+# sw $t3, 1($sp)
+# sw $t7, 2($sp)
+# sw $t6, 3($sp)
+# sw $t5, 4($sp)
+# sw $t4, 5($sp)
+# sw $t1, 6(
