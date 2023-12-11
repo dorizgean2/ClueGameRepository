@@ -30,7 +30,7 @@ add $t8, $zero, $zero
 lw $t8, 0($t6)
 add $s2, $t8, $zero
 bne $s2, $t2, dice_btn_left_press         # check if left button has been pressed
-addi $t9, $zero, 200                      # accuse someone prompts up
+addi $t9, $zero, 200                      # ACCUSE prompts up
 sw $t9, 0($t1)
 add $t8, $zero, $zero
 read_red_button:
@@ -42,7 +42,7 @@ nop
 nop
 nop
 bne $t8, $t2, read_red_button
-
+addi $t9, $zero, 202
 
 check_directions_button:
 addi $t5, $zero, 5000       # r13 = 5000 (BTNU)
@@ -85,7 +85,6 @@ sw $t9, 0($t1)
 j accusations 
 
 accusations:                 
-addi $t9, $zero, 202
 sw $t9, 0($t1)           
 bne $t9, $zero, end_test    
 
@@ -124,6 +123,7 @@ bne $t9, $zero, end_test
 
 
 end_test:
+addi $t9, $zero, 203            # accusation has been made
 nop
 
 
