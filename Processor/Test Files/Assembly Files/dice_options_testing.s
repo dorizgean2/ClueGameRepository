@@ -42,7 +42,7 @@ lw $t8, 0($t3)                  # read red button
 nop
 nop
 nop
-bne $t8, $t2, read_red_button:
+bne $t8, $t2, read_red_button
 
 
 check_directions_button:
