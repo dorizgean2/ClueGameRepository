@@ -25,7 +25,7 @@ j dice_roll_prompt
 
 dice_btn_right_press:
 addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
-addi $t3, $zero, 7000            # r12 = 7000 (Red Button)
+addi $t3, $zero, 8000            # r12 = 7000 (Red Button)
 add $t8, $zero, $zero
 lw $t8, 0($t6)
 add $s2, $t8, $zero
