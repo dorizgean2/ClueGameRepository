@@ -12,6 +12,7 @@ dice_roll_prompt:
 addi $t9, $zero, 201
 
 dice_btn_left_press:        # only for dice roll prompt
+add $t8, $zero, $zero
 sw $t9, 0($t1)
 lw  $t8, 0($t7)		        # r24 = button output
 add $s1, $t8, $zero
@@ -27,6 +28,7 @@ sw $t9, 0($t1)
 j dice_roll_prompt
 
 dice_btn_right_press:
+add $t8, $zero, $zero
 lw $t8, 0($t6)
 add $s2, $t8, $zero
 bne $s2, $t2, dice_btn_left_press         # check if left button has been pressed
@@ -34,6 +36,7 @@ addi $t9, $zero, 200                      # accusation prompts up
 sw $t9, 0($t1)
 
 check_directions_button:
+add $t8, $zero, $zero
 lw  $t8, 0($t5)           # check if up button has been pressed
 add $s3, $t8, $zero
 bne $s3, $t2, btn_down_press
@@ -43,6 +46,7 @@ lw $t0, 0($t1)
 j accusations
 
 btn_down_press:
+add $t8, $zero, $zero
 lw $t8, 0($t4)          # check if down button has been pressed
 add $s4, $t8, $zero 
 bne $s4, $t2, check_directions_button
@@ -52,6 +56,7 @@ lw $t0, 0($t1)
 j accusations
 
 btn_left_press:
+add $t8, $zero, $zero
 lw $t8, 0($t7)
 add $s5, $t8, $zero
 bne $s5, $t2, btn_right_press
@@ -61,6 +66,7 @@ lw $t0, 0($t1)
 j accusations
 
 btn_right_press:
+add $t8, $zero, $zero
 lw $t8, 0($t6)
 add $s6, $t8, $zero
 bne $s6, $t2, check_directions_button        # goes back to checkt8g buttons
