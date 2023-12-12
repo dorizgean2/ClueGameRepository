@@ -104,6 +104,8 @@ bne $t8, $zero, check_movements       # update next player information
 
 update_turn:
 addi $t0, $t0, 1
+add $t9, $t0, $zero
+sw $t9, 0($t1)
 j dice_roll_prompt
 
 accuse_weapon_prompt:
