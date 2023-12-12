@@ -204,6 +204,10 @@ sw $t9, 0($t1)                          # processor outputs 700
 nop
 nop
 nop    
+add $s1, $t9, $zero
+nop
+nop
+nop
 j accuse_weapon_prompt                  
 
 btn_down_press:
@@ -238,6 +242,10 @@ sw $t9, 0($t1)
 nop
 nop
 nop    
+add $s1, $t9, $zero
+nop
+nop
+nop
 j accuse_weapon_prompt
 
 btn_left_press:
@@ -267,7 +275,11 @@ nop
 addi $t9, $zero, 702                # left button has been pressed -> processor_output = 702
 nop
 nop
-nop    
+nop   
+add $s1, $t9, $zero
+nop
+nop
+nop 
 sw $t9, 0($t1)
 
 j accuse_weapon_prompt
@@ -304,6 +316,10 @@ sw $t9, 0($t1)
 nop
 nop
 nop    
+add $s1, $t9, $zero
+nop
+nop
+nop
 j accuse_weapon_prompt  
 
 movement:
@@ -448,7 +464,11 @@ sw $t9, 0($t1)
 nop
 nop
 nop    
-j accuse_room_prompt
+add $s0, $t9, $zero
+nop
+nop
+nop
+j accusations_check
 
 btn_left_press_weapons:
 nop
@@ -481,8 +501,12 @@ nop
 sw $t9, 0($t1)
 nop
 nop
-nop    
-j accuse_room_prompt
+nop   
+add $s0, $t9, $zero
+nop
+nop
+nop 
+j accusations_check
 
 btn_right_press_weapons:
 nop
@@ -515,8 +539,12 @@ nop
 sw $t9, 0($t1)
 nop
 nop
-nop    
-j accuse_room_prompt 
+nop   
+add $s0, $t9, $zero
+nop
+nop
+nop 
+j accusations_check 
 
 next_page_button:
 add $t8, $zero, $zero
@@ -578,8 +606,12 @@ nop
 sw $t9, 0($t1)
 nop
 nop
-nop    
-j accuse_room_prompt
+nop  
+add $s0, $t9, $zero
+nop
+nop
+nop
+j accusations_check
 
 btn_left_press_weapons_next:
 nop
@@ -612,8 +644,12 @@ nop
 sw $t9, 0($t1)
 nop
 nop
-nop    
-j accuse_room_prompt
+nop  
+add $s0, $t9, $zero
+nop
+nop
+nop  
+j accusations_check
 
 btn_right_press_weapons_next:
 nop
@@ -647,7 +683,11 @@ sw $t9, 0($t1)
 nop
 nop
 nop
-j accuse_room_prompt 
+add $s0, $t9, $zero
+nop
+nop
+nop
+j accusations_check 
 
 next_page_button_next:
 add $t8, $zero, $zero
@@ -671,7 +711,7 @@ add $s5, $t8, $zero
 nop
 nop
 nop
-bne $s5, $t2, check_directions_button
+bne $s5, $t2, next_page_check
 nop
 nop
 nop
@@ -680,6 +720,7 @@ nop
 nop
 nop
 sw $t9, 0($t1)
+j check_directions_button
 
 accuse_room_prompt:
 addi $t9, $zero, 206                      # ACCUSE ROOM prompts up
@@ -1007,7 +1048,30 @@ j accusations_check
 
 
 accusations_check:
+addi $s3, $zero, 1000
+lw $t8, 0($s3) # tell the vga that i want to win or lose
+addi $t3, $zero, 800
+add $t9, $t3, $zero
+sw $t9, 0($t1)
 nop
+nop
+nop
+add $t9, $s1, $zero
+sw $t9, 0($t1)
+
+weapon_check:
+nop
+nop
+nop
+addi $t2, $zero, 801
+add $t9, $t2, $zero
+sw $t9, 0($t1)
+nop
+nop
+nop
+add $t9, $s0, $zero
+sw $t9, 0($t1)
+j dice_roll_prompt
 
 
 
