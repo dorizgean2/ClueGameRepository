@@ -137,7 +137,7 @@ add $t8, $zero, $zero           # t8 = processor input = 0
 lw $t8, 0($s3)      
 add $s6, $t8, $zero
 
-blt $t2, $s6, check_movements       # update next player information
+bne $s6, $zero, check_movements       # update next player information
 addi $t9, $zero, 15                     # send to processor that there are no more moves to be dealt with
 sw $t9, 0($t1)
 
