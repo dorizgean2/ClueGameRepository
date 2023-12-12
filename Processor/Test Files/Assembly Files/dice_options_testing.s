@@ -138,7 +138,7 @@ add $t8, $zero, $zero           # t8 = processor input = 0
 lw $t8, 0($s3)      
 add $s6, $t8, $zero
 
-blt $zero, $s6, check_movements       # update next player information
+blt $t2, $s6, check_movements       # update next player information
 
 update_turn:
 addi $t0, $t0, 1                      # t0 = set turn = turn + 1
