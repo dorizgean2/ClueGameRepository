@@ -334,18 +334,26 @@ lw $t8, 0($s3)
 nop
 nop
 nop    
-add $s6, $t8, $zero
+add $s6, $t8, $zero         
 nop
 nop
 nop    
-blt $t2, $s6, check_movements       # update next player information
+blt $t2, $s6, check_movements       # update next player information <- if 1 < current movement, loop until 0
 nop
 nop
 nop    
-update_turn:
+update_turn:                        # otherwise if there are no more moves left then switch whose turn 
 nop
 nop
 nop    
+addi $t9, $zero, 15
+nop
+nop
+nop
+sw $t9, 0($t1)
+nop
+nop
+nop
 addi $t0, $t0, 1                      # t0 = set turn = turn + 1
 nop
 nop
@@ -357,8 +365,8 @@ nop
 sw $t9, 0($t1)                        # output current turn to VGA
 nop
 nop
-nop    
-j dice_roll_prompt
+nop   
+j dice_roll_prompt                      # next player rolls dice or accuses someone
 
 
 accuse_weapon_prompt:
@@ -628,39 +636,81 @@ nop
 nop
 nop    
 bne $s4, $t2, next_page_button_next        # goes back to checkt8g buttons
+nop
+nop
+nop
 addi $t9, $zero, 709      # right button has been pressed -> processor_t9put = 4
+nop
+nop
+nop
 sw $t9, 0($t1)
+nop
+nop
+nop
 j accuse_room_prompt 
 
 next_page_button_next:
 add $t8, $zero, $zero
+nop
+nop
+nop
 addi $t3, $zero, 7000            # r12 = 7000 (Red Button)
+nop
+nop
+nop
 add $s5, $zero, $zero
 read_next_button_next:
 nop
 nop
 nop 
 lw $t8, 0($t3)                  # read red button
+nop
+nop
+nop
 add $s5, $t8, $zero
 nop
 nop
 nop
 bne $s5, $t2, check_directions_button
+nop
+nop
+nop
 addi $t9, $zero, 204
+nop
+nop
+nop
 sw $t9, 0($t1)
 
 accuse_room_prompt:
 addi $t9, $zero, 206                      # ACCUSE ROOM prompts up
+nop
+nop
+nop
 sw $t9, 0($t1)
+nop
+nop
+nop
 add $t8, $zero, $zero
+nop
+nop
+nop
 add $s7, $zero, $zero
+nop
+nop
+nop
 add $s5, $zero, $zero
+nop
+nop
+nop
 addi $t3, $zero, 9000           # yellow button
 read_yellow_button:
 nop
 nop
 nop 
 lw $t8, 0($t3)                  # read yellow button
+nop
+nop
+nop
 add $s7, $t8, $zero
 nop
 nop
