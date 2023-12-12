@@ -19,7 +19,8 @@ dice_btn_left_press:                    # check if left button is pressed
 add $s1, $zero, $zero                   # set s1 = 0
 add $t8, $zero, $zero                   # set t8 = button input = 0
 addi $t7, $zero, 3000                   # set t7 = 3000 (BTNL)
-
+addi $t9, $zero, 15                     # send to processor that there are no more moves to be dealt with
+sw $t9, 0($t1)
 add $t9, $t0, $zero                     # processor saves current turn 
 sw $t9, 0($t1)                          # processsor outputs current turn
 
@@ -139,8 +140,6 @@ lw $t8, 0($s3)
 add $s6, $t8, $zero
 
 blt $t2, $s6, check_movements       # update next player information
-addi $t9, $zero, 15                 # send to processor that there are no more moves to be dealt with
-sw $t9, 0($t1)
 
 update_turn:
 addi $t0, $t0, 1                      # t0 = set turn = turn + 1
