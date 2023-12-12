@@ -101,7 +101,6 @@ check_movements:                # continuously read from vga until it has reache
 add $t8, $zero, $zero
 lw $t8, 0($s3)      
 bne $t8, $zero, check_movements       # update next player information
-j update_turn
 
 update_turn:
 addi $t0, $t0, 1
