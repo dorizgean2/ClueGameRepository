@@ -8,7 +8,7 @@ sw $t9, 0($t1)              # outputs t9 or room, killer, weapon selection
 
 addi $s0, $zero, 304        # s0 set to be max turns
 addi $t0, $zero, 300        # t0 = turns {300, 301, 302, 303}
-
+sw $t9, 0($t1)
 
 dice_roll_prompt:
 addi $t9, $zero, 15                     # send to processor that there are no more moves to be dealt with
