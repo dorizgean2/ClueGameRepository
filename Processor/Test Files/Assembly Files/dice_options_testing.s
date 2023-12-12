@@ -100,7 +100,7 @@ j accuse_weapon_prompt
 movement:
 add $t8, $zero, $zero
 addi $s3, $zero, 1000        # from VGA
-bne $t0, $s0, check_movements
+blt $t0, $s0, check_movements
 addi $t0, $zero, 300
 
 check_movements:                # continuously read from vga until it has reached max movement numbers
@@ -256,7 +256,7 @@ add $s5, $t8, $zero
 bne $s5, $t2, btn_left_press_rooms
 addi $t9, $zero, 100     # down button has been pressed -> processor_t9put = 2
 sw $t9, 0($t1)
-j dice_roll_prompt
+j accusations_check
 
 btn_left_press_rooms:
 addi $t7, $zero, 3000       # r15 = 3000 (BTNL)
@@ -266,7 +266,7 @@ add $s5, $t8, $zero
 bne $s5, $t2, btn_right_press_rooms
 addi $t9, $zero, 101      # left button has been pressed -> processor_t9put = 3
 sw $t9, 0($t1)
-j dice_roll_prompt
+j accusations_check
 
 btn_right_press_rooms:
 addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
@@ -276,7 +276,7 @@ add $s5, $t8, $zero
 bne $s5, $t2, check_directions_button_rooms       # goes back to checkt8g buttons
 addi $t9, $zero, 102      # right button has been pressed -> processor_t9put = 4
 sw $t9, 0($t1)
-j dice_roll_prompt 
+j accusations_check 
 
 next_page_button_rooms:
 add $t8, $zero, $zero
@@ -303,7 +303,7 @@ add $s5, $t8, $zero
 bne $s5, $t2, btn_left_press_rooms_next
 addi $t9, $zero, 103      # down button has been pressed -> processor_t9put = 2
 sw $t9, 0($t1)
-j dice_roll_prompt
+j accusations_check
 
 btn_left_press_rooms_next:
 addi $t7, $zero, 3000       # r15 = 3000 (BTNL)
@@ -313,7 +313,7 @@ add $s5, $t8, $zero
 bne $s5, $t2, btn_right_press_rooms_next
 addi $t9, $zero, 104      # left button has been pressed -> processor_t9put = 3
 sw $t9, 0($t1)
-j dice_roll_prompt
+j accusations_check
 
 btn_right_press_rooms_next:
 addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
@@ -323,7 +323,7 @@ add $s5, $t8, $zero
 bne $s5, $t2, next_page_button_rooms_next        # goes back to checkt8g buttons
 addi $t9, $zero, 105      # right button has been pressed -> processor_t9put = 4
 sw $t9, 0($t1)
-j dice_roll_prompt 
+j accusations_check 
 
 next_page_button_rooms_next:
 add $t8, $zero, $zero
@@ -341,11 +341,11 @@ nop
 bne $s7, $t2, check_directions_button_rooms
 addi $t9, $zero, 207
 sw $t9, 0($t1)
-j dice_roll_prompt
+j accusations_check
 
 
-
-
+accusations_check:
+nop
 
 
 
@@ -356,3 +356,7 @@ j dice_roll_prompt
 
 
 
+
+#800 - identity check
+#801 - weapon check
+#802 - room check
