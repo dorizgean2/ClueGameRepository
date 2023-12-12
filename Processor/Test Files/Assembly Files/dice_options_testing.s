@@ -3,7 +3,7 @@ addi $t2, $zero, 1		# r10 = 1
 addi $t1, $zero, 2000		# r9 = 2000 (processor_input)
 rng $s7, $zero, $zero
 addi $t9, $s7, 100
-addi $t0, $zero, 300        #turns {300, 301, 302, 303}
+addi $t0, $zero, 300        # t0 = turns {300, 301, 302, 303}
 dice_roll_prompt:
 addi $t9, $zero, 201
 
@@ -23,6 +23,10 @@ nop
 nop
 nop
 sw $t9, 0($t1)
+nop
+nop
+nop
+add $s4, $t9, $zero
 j movement
 
 dice_btn_right_press:
@@ -93,40 +97,14 @@ accusations:
 bne $t9, $zero, end_test    
 
 movement:
-addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
-addi $t5, $zero, 5000       # r13 = 5000 (BTNU)
-addi $t4, $zero, 6000       # r12 = 6000 (BTND)
 add $s1, $zero, $zero         # to keep track of difference
-add $s3, $zero, $zero         # counter register
 add $t8, $zero, $zero
+addi $s3, $zero, 1000        # from VGA
 
-update_counter:
-sub $s1, $t9, $s3 
-blt $s1, $t2, update_turn
-
-check_up:
-lw $t8, 0($t5)
-bne $t8, $t2, check_down
-addi $s3, $zero, 1
-j update_counter
-
-check_down:
-lw $t8, 0($t5)
-bne $t8, $t2, check_right
-addi $s3, $zero, 1
-j update_counter
-
-check_right:
-lw $t8, 0($t5)
-bne $t8, $t2, check_left
-addi $s3, $zero, 1
-j update_counter
-
-check_left:
-lw $t8, 0($t7)
-bne $t8, $t2, check_up
-addi $s3, $zero, 1
-j update_counter
+check_movements:
+lw $t8, 0($s3)
+blt $t8, $t2, update_turn
+j check_movements
 
 update_turn:
 addi $t0, $t0, 1
