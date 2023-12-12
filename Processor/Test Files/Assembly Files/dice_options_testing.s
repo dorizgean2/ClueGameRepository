@@ -5,10 +5,13 @@ rng $s7, $zero, $zero       # killer's identity is randomized
 addi $t9, $s7, 100          # room selection
 addi $s0, $zero, 304
 sw $t9, 0($t1)
-addi $t0, $zero, 301        # t0 = turns {300, 301, 302, 303}
+addi $t0, $zero, 300        # t0 = turns {300, 301, 302, 303}
 add $t9, $t0, $zero
 sw $t9, 0($t1)
+
 dice_roll_prompt:
+add $t9, $t0, $zero
+sw $t9, 0($t1) 
 addi $t9, $zero, 201
 sw $t9, 0($t1)
 
