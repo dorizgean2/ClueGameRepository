@@ -506,7 +506,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop 
-j dice_roll_prompt
+j accusations_check
 
 btn_right_press_weapons:
 nop
@@ -544,7 +544,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop 
-j dice_roll_prompt 
+j accusations_check 
 
 next_page_button:
 add $t8, $zero, $zero
@@ -611,7 +611,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop
-j dice_roll_prompt
+j accusations_check
 
 btn_left_press_weapons_next:
 nop
@@ -687,7 +687,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop
-j dice_roll_prompt 
+j accusations_check 
 
 next_page_button_next:
 add $t8, $zero, $zero
@@ -722,329 +722,329 @@ nop
 sw $t9, 0($t1)
 j check_directions_button
 
-accuse_room_prompt:
-addi $t9, $zero, 206                      # ACCUSE ROOM prompts up
-nop
-nop
-nop
-sw $t9, 0($t1)
-nop
-nop
-nop
-add $t8, $zero, $zero
-nop
-nop
-nop
-add $s7, $zero, $zero
-nop
-nop
-nop
-add $s5, $zero, $zero
-nop
-nop
-nop
-addi $t3, $zero, 9000           # yellow button
-read_yellow_button:
-nop
-nop
-nop 
-lw $t8, 0($t3)                  # read yellow button
-nop
-nop
-nop
-add $s7, $t8, $zero
-nop
-nop
-nop
-bne $s7, $t2, read_yellow_button
-nop
-nop
-nop    
-addi $t9, $zero, 207                # accuse room selection image is up
-nop
-nop
-nop    
-sw $t9, 0($t1)
+# accuse_room_prompt:
+# addi $t9, $zero, 206                      # ACCUSE ROOM prompts up
+# nop
+# nop
+# nop
+# sw $t9, 0($t1)
+# nop
+# nop
+# nop
+# add $t8, $zero, $zero
+# nop
+# nop
+# nop
+# add $s7, $zero, $zero
+# nop
+# nop
+# nop
+# add $s5, $zero, $zero
+# nop
+# nop
+# nop
+# addi $t3, $zero, 9000           # yellow button
+# read_yellow_button:
+# nop
+# nop
+# nop 
+# lw $t8, 0($t3)                  # read yellow button
+# nop
+# nop
+# nop
+# add $s7, $t8, $zero
+# nop
+# nop
+# nop
+# bne $s7, $t2, read_yellow_button
+# nop
+# nop
+# nop    
+# addi $t9, $zero, 207                # accuse room selection image is up
+# nop
+# nop
+# nop    
+# sw $t9, 0($t1)
 
-check_directions_button_rooms:
-nop
-nop
-nop    
-addi $t4, $zero, 6000      # r12 = 6000 (BTND)
-nop
-nop
-nop    
-add $t8, $zero, $zero
-nop
-nop
-nop    
-lw $t8, 0($t4)          # check if down button has been pressed
-nop
-nop
-nop    
-add $s5, $t8, $zero 
-nop
-nop
-nop    
-bne $s5, $t2, btn_left_press_rooms
-nop
-nop
-nop    
-addi $t9, $zero, 100     # down button has been pressed -> processor_t9put = 2
-nop
-nop
-nop    
-sw $t9, 0($t1)
-nop
-nop
-nop    
-j dice_roll_prompt
+# check_directions_button_rooms:
+# nop
+# nop
+# nop    
+# addi $t4, $zero, 6000      # r12 = 6000 (BTND)
+# nop
+# nop
+# nop    
+# add $t8, $zero, $zero
+# nop
+# nop
+# nop    
+# lw $t8, 0($t4)          # check if down button has been pressed
+# nop
+# nop
+# nop    
+# add $s5, $t8, $zero 
+# nop
+# nop
+# nop    
+# bne $s5, $t2, btn_left_press_rooms
+# nop
+# nop
+# nop    
+# addi $t9, $zero, 100     # down button has been pressed -> processor_t9put = 2
+# nop
+# nop
+# nop    
+# sw $t9, 0($t1)
+# nop
+# nop
+# nop    
+# j dice_roll_prompt
 
-btn_left_press_rooms:
-nop
-nop
-nop    
-addi $t7, $zero, 3000       # r15 = 3000 (BTNL)
-nop
-nop
-nop    
-add $t8, $zero, $zero
-nop
-nop
-nop    
-lw $t8, 0($t7)
-nop
-nop
-nop    
-add $s5, $t8, $zero
-nop
-nop
-nop    
-bne $s5, $t2, btn_right_press_rooms
-nop
-nop
-nop    
-addi $t9, $zero, 101      # left button has been pressed -> processor_t9put = 3
-nop
-nop
-nop    
-sw $t9, 0($t1)
-nop
-nop
-nop    
-j dice_roll_prompt
+# btn_left_press_rooms:
+# nop
+# nop
+# nop    
+# addi $t7, $zero, 3000       # r15 = 3000 (BTNL)
+# nop
+# nop
+# nop    
+# add $t8, $zero, $zero
+# nop
+# nop
+# nop    
+# lw $t8, 0($t7)
+# nop
+# nop
+# nop    
+# add $s5, $t8, $zero
+# nop
+# nop
+# nop    
+# bne $s5, $t2, btn_right_press_rooms
+# nop
+# nop
+# nop    
+# addi $t9, $zero, 101      # left button has been pressed -> processor_t9put = 3
+# nop
+# nop
+# nop    
+# sw $t9, 0($t1)
+# nop
+# nop
+# nop    
+# j dice_roll_prompt
 
-btn_right_press_rooms:
-nop
-nop
-nop    
-addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
-nop
-nop
-nop    
-add $t8, $zero, $zero
-nop
-nop
-nop    
-lw $t8, 0($t6)
-nop
-nop
-nop    
-add $s5, $t8, $zero
-nop
-nop
-nop    
-bne $s5, $t2, check_directions_button_rooms       # goes back to checkt8g buttons
-nop
-nop
-nop    
-addi $t9, $zero, 102      # right button has been pressed -> processor_t9put = 4
-nop
-nop
-nop    
-sw $t9, 0($t1)
-nop
-nop
-nop    
-j dice_roll_prompt 
+# btn_right_press_rooms:
+# nop
+# nop
+# nop    
+# addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
+# nop
+# nop
+# nop    
+# add $t8, $zero, $zero
+# nop
+# nop
+# nop    
+# lw $t8, 0($t6)
+# nop
+# nop
+# nop    
+# add $s5, $t8, $zero
+# nop
+# nop
+# nop    
+# bne $s5, $t2, check_directions_button_rooms       # goes back to checkt8g buttons
+# nop
+# nop
+# nop    
+# addi $t9, $zero, 102      # right button has been pressed -> processor_t9put = 4
+# nop
+# nop
+# nop    
+# sw $t9, 0($t1)
+# nop
+# nop
+# nop    
+# j dice_roll_prompt 
 
-next_page_button_rooms:
-nop
-nop
-nop    
-add $t8, $zero, $zero
-nop
-nop
-nop    
-addi $t3, $zero, 7000            # r12 = 7000 (Red Button)
-nop
-nop
-nop    
-add $s7, $zero, $zero
+# next_page_button_rooms:
+# nop
+# nop
+# nop    
+# add $t8, $zero, $zero
+# nop
+# nop
+# nop    
+# addi $t3, $zero, 7000            # r12 = 7000 (Red Button)
+# nop
+# nop
+# nop    
+# add $s7, $zero, $zero
 
-read_next_button_rooms:
-nop
-nop
-nop 
-lw $t8, 0($t3)                  # read red button
-nop
-nop
-nop    
-add $s7, $t8, $zero
-nop
-nop
-nop
-bne $s7, $t2, read_next_button_rooms
-nop
-nop
-nop    
-addi $t9, $zero, 208           # next page of room selection appears
-nop
-nop
-nop    
-sw $t9, 0($t1)
+# read_next_button_rooms:
+# nop
+# nop
+# nop 
+# lw $t8, 0($t3)                  # read red button
+# nop
+# nop
+# nop    
+# add $s7, $t8, $zero
+# nop
+# nop
+# nop
+# bne $s7, $t2, read_next_button_rooms
+# nop
+# nop
+# nop    
+# addi $t9, $zero, 208           # next page of room selection appears
+# nop
+# nop
+# nop    
+# sw $t9, 0($t1)
 
-next_page_check_rooms:
-nop
-nop
-nop    
-addi $t4, $zero, 6000      # r12 = 6000 (BTND)
-nop
-nop
-nop    
-add $t8, $zero, $zero
-nop
-nop
-nop    
-lw $t8, 0($t4)          # check if down button has been pressed
-nop
-nop
-nop    
-add $s5, $t8, $zero 
-nop
-nop
-nop    
-bne $s5, $t2, btn_left_press_rooms_next
-nop
-nop
-nop    
-addi $t9, $zero, 103      # down button has been pressed -> processor_t9put = 2
-nop
-nop
-nop    
-sw $t9, 0($t1)
-nop
-nop
-nop    
-j accusations_check
+# next_page_check_rooms:
+# nop
+# nop
+# nop    
+# addi $t4, $zero, 6000      # r12 = 6000 (BTND)
+# nop
+# nop
+# nop    
+# add $t8, $zero, $zero
+# nop
+# nop
+# nop    
+# lw $t8, 0($t4)          # check if down button has been pressed
+# nop
+# nop
+# nop    
+# add $s5, $t8, $zero 
+# nop
+# nop
+# nop    
+# bne $s5, $t2, btn_left_press_rooms_next
+# nop
+# nop
+# nop    
+# addi $t9, $zero, 103      # down button has been pressed -> processor_t9put = 2
+# nop
+# nop
+# nop    
+# sw $t9, 0($t1)
+# nop
+# nop
+# nop    
+# j accusations_check
 
-btn_left_press_rooms_next:
-nop
-nop
-nop    
-addi $t7, $zero, 3000       # r15 = 3000 (BTNL)
-nop
-nop
-nop    
-add $t8, $zero, $zero
-nop
-nop
-nop    
-lw $t8, 0($t7)
-nop
-nop
-nop    
-add $s5, $t8, $zero
-nop
-nop
-nop    
-bne $s5, $t2, btn_right_press_rooms_next
-nop
-nop
-nop    
-addi $t9, $zero, 104      # left button has been pressed -> processor_t9put = 3
-nop
-nop
-nop    
-sw $t9, 0($t1)
-nop
-nop
-nop    
-j accusations_check
+# btn_left_press_rooms_next:
+# nop
+# nop
+# nop    
+# addi $t7, $zero, 3000       # r15 = 3000 (BTNL)
+# nop
+# nop
+# nop    
+# add $t8, $zero, $zero
+# nop
+# nop
+# nop    
+# lw $t8, 0($t7)
+# nop
+# nop
+# nop    
+# add $s5, $t8, $zero
+# nop
+# nop
+# nop    
+# bne $s5, $t2, btn_right_press_rooms_next
+# nop
+# nop
+# nop    
+# addi $t9, $zero, 104      # left button has been pressed -> processor_t9put = 3
+# nop
+# nop
+# nop    
+# sw $t9, 0($t1)
+# nop
+# nop
+# nop    
+# j accusations_check
 
-btn_right_press_rooms_next:
-nop
-nop
-nop    
-addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
-nop
-nop
-nop    
-add $t8, $zero, $zero
-nop
-nop
-nop    
-lw $t8, 0($t6)
-nop
-nop
-nop    
-add $s5, $t8, $zero
-nop
-nop
-nop    
-bne $s5, $t2, next_page_button_rooms_next        # goes back to checkt8g buttons
-nop
-nop
-nop    
-addi $t9, $zero, 105      # right button has been pressed -> processor_t9put = 4
-nop
-nop
-nop    
-sw $t9, 0($t1)
-nop
-nop
-nop    
-j accusations_check 
+# btn_right_press_rooms_next:
+# nop
+# nop
+# nop    
+# addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
+# nop
+# nop
+# nop    
+# add $t8, $zero, $zero
+# nop
+# nop
+# nop    
+# lw $t8, 0($t6)
+# nop
+# nop
+# nop    
+# add $s5, $t8, $zero
+# nop
+# nop
+# nop    
+# bne $s5, $t2, next_page_button_rooms_next        # goes back to checkt8g buttons
+# nop
+# nop
+# nop    
+# addi $t9, $zero, 105      # right button has been pressed -> processor_t9put = 4
+# nop
+# nop
+# nop    
+# sw $t9, 0($t1)
+# nop
+# nop
+# nop    
+# j accusations_check 
 
-next_page_button_rooms_next:
-nop
-nop
-nop    
-add $t8, $zero, $zero
-nop
-nop
-nop    
-addi $t3, $zero, 7000            # r12 = 7000 (Red Button)
-nop
-nop
-nop    
-add $s7, $zero, $zero
+# next_page_button_rooms_next:
+# nop
+# nop
+# nop    
+# add $t8, $zero, $zero
+# nop
+# nop
+# nop    
+# addi $t3, $zero, 7000            # r12 = 7000 (Red Button)
+# nop
+# nop
+# nop    
+# add $s7, $zero, $zero
 
-read_next_button_rooms_next:
-nop
-nop
-nop 
-lw $t8, 0($t3)                  # read red button
-nop
-nop
-nop    
-add $s7, $t8, $zero
-nop
-nop
-nop
-bne $s7, $t2, check_directions_button_rooms
-nop
-nop
-nop    
-addi $t9, $zero, 207
-nop
-nop
-nop    
-sw $t9, 0($t1)
-nop
-nop
-nop    
-j accusations_check
+# read_next_button_rooms_next:
+# nop
+# nop
+# nop 
+# lw $t8, 0($t3)                  # read red button
+# nop
+# nop
+# nop    
+# add $s7, $t8, $zero
+# nop
+# nop
+# nop
+# bne $s7, $t2, check_directions_button_rooms
+# nop
+# nop
+# nop    
+# addi $t9, $zero, 207
+# nop
+# nop
+# nop    
+# sw $t9, 0($t1)
+# nop
+# nop
+# nop    
+# j accusations_check
 
 
 accusations_check:
