@@ -26,7 +26,6 @@ sw $t9, 0($t1)
 nop
 nop
 nop
-add $s4, $t9, $zero
 j movement
 
 dice_btn_right_press:
@@ -101,9 +100,10 @@ add $s1, $zero, $zero         # to keep track of difference
 add $t8, $zero, $zero
 addi $s3, $zero, 1000        # from VGA
 
-check_movements:
-lw $t8, 0($s3)
-blt $t8, $t2, update_turn
+check_movements:                # continuously read from vga until it has reached max movement numbers
+add $t8, $zero, $zero
+lw $t8, 0($s3)      
+blt $t8, $t2, update_turn       # update next player information
 j check_movements
 
 update_turn:
