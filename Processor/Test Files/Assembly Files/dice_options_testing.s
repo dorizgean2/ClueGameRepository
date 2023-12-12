@@ -720,7 +720,7 @@ nop
 nop
 nop
 sw $t9, 0($t1)
-j check_directions_button
+j check_directions_button_weapons
 
 # accuse_room_prompt:
 # addi $t9, $zero, 206                      # ACCUSE ROOM prompts up
