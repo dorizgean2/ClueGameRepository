@@ -31,7 +31,13 @@ sw $t9, 0($t1)
 nop
 nop
 nop
-j movement
+addi $s2, $zero, 300
+bne $t0, $s2, movement1
+addi $s2, $zero, 301
+bne $t0, $s2, movement2
+addi $s2, $zero, 302
+bne $t0, $s2, movement3
+j movement4
 
 dice_btn_right_press:
 addi $t6, $zero, 4000               # r14 = 4000 (BTNR)
@@ -97,22 +103,66 @@ addi $t9, $zero, 703      # right button has been pressed -> processor_t9put = 4
 sw $t9, 0($t1)
 j accuse_weapon_prompt  
 
-movement:
+movement1:
 add $t8, $zero, $zero
 addi $s3, $zero, 1000        # from VGA
-blt $t0, $s0, check_movements
-addi $t0, $zero, 300
 
-check_movements:                # continuously read from vga until it has reached max movement numbers
+check1_movements:                # continuously read from vga until it has reached max movement numbers
 add $t8, $zero, $zero
 lw $t8, 0($s3)      
-bne $t8, $zero, check_movements       # update next player information
+bne $t8, $zero, check1_movements       # update next player information
 
-update_turn:
+update_turn1:
 addi $t0, $t0, 1
 add $t9, $t0, $zero
 sw $t9, 0($t1)
 j dice_roll_prompt
+
+movement2:
+add $t8, $zero, $zero
+addi $s3, $zero, 1000        # from VGA
+
+check2_movements:                # continuously read from vga until it has reached max movement numbers
+add $t8, $zero, $zero
+lw $t8, 0($s3)      
+bne $t8, $zero, check2_movements       # update next player information
+
+update_turn2:
+addi $t0, $t0, 1
+add $t9, $t0, $zero
+sw $t9, 0($t1)
+j dice_roll_prompt
+
+movement3:
+add $t8, $zero, $zero
+addi $s3, $zero, 1000        # from VGA
+
+check3_movements:                # continuously read from vga until it has reached max movement numbers
+add $t8, $zero, $zero
+lw $t8, 0($s3)      
+bne $t8, $zero, check3_movements       # update next player information
+
+update_turn3:
+addi $t0, $t0, 1
+add $t9, $t0, $zero
+sw $t9, 0($t1)
+j dice_roll_prompt
+
+movement4:
+add $t8, $zero, $zero
+addi $s3, $zero, 1000        # from VGA
+
+check4_movements:                # continuously read from vga until it has reached max movement numbers
+add $t8, $zero, $zero
+lw $t8, 0($s3)      
+bne $t8, $zero, check4_movements       # update next player information
+
+update_turn4:
+addi $t0, $zero, 300
+add $t9, $t0, $zero
+sw $t9, 0($t1)
+j dice_roll_prompt
+
 
 accuse_weapon_prompt:
 addi $t9, $zero, 203            # accusation has been made
