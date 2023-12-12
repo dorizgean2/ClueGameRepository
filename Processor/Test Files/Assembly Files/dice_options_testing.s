@@ -11,8 +11,6 @@ addi $t0, $zero, 300        # t0 = turns {300, 301, 302, 303}
 sw $t9, 0($t1)
 
 dice_roll_prompt:
-addi $t9, $zero, 15                     # send to processor that there are no more moves to be dealt with
-sw $t9, 0($t1)
 addi $t9, $zero, 201                    # processor saves 201 = "dice roll?" prompt
 sw $t9, 0($t1)                          # processor outputs "dice roll?" prompt
 
@@ -138,6 +136,8 @@ lw $t8, 0($s3)
 add $s6, $t8, $zero
 
 blt $t2, $s6, check_movements       # update next player information
+addi $t9, $zero, 15                     # send to processor that there are no more moves to be dealt with
+sw $t9, 0($t1)
 
 update_turn:
 addi $t0, $t0, 1                      # t0 = set turn = turn + 1
