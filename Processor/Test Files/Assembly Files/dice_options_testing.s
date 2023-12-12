@@ -468,7 +468,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop
-j dice_roll_prompt
+j accusations_check
 
 btn_left_press_weapons:
 nop
@@ -649,7 +649,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop  
-j dice_roll_prompt
+j accusations_check
 
 btn_right_press_weapons_next:
 nop
