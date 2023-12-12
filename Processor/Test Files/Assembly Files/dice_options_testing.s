@@ -127,6 +127,8 @@ sw $t9, 0($t1)
 j accuse_weapon_prompt  
 
 movement:
+add $t9, $t0, $zero
+sw $t9, 0($t1)
 
 addi $s3, $zero, 1000           # s3 = 1000 -> data from VGA
 
@@ -142,7 +144,7 @@ sw $t9, 0($t1)
 update_turn:
 addi $t0, $t0, 1                      # t0 = set turn = turn + 1
 
-add $t9, $t0, $zero                   # save current turn in processor
+add $t9, $zero, $t0                   # save current turn in processor
 sw $t9, 0($t1)                        # output current turn to VGA
 
 j dice_roll_prompt
