@@ -44,6 +44,7 @@ nop
 nop
 bne $s3, $t2, read_red_button
 addi $t9, $zero, 202
+sw $t9, 0($t1)
 
 check_directions_button:
 addi $t5, $zero, 5000       # r13 = 5000 (BTNU)
@@ -86,8 +87,7 @@ addi $t9, $zero, 5      # right button has been pressed -> processor_t9put = 4
 sw $t9, 0($t1)
 j accusations 
 
-accusations:                 
-sw $t9, 0($t1)           
+accusations:             
 bne $t9, $zero, end_test    
 
 # continue_game:
