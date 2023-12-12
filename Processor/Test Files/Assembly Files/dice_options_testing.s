@@ -14,6 +14,8 @@ add $t9, $t0, $zero
 sw $t9, 0($t1) 
 addi $t9, $zero, 201
 sw $t9, 0($t1)
+addi $t9, $zero, 199
+sw $t9, 0($t1)
 
 dice_btn_left_press:        # only for dice roll prompt
 add $s1, $zero, $zero
