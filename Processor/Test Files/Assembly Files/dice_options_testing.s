@@ -14,8 +14,6 @@ add $t9, $t0, $zero
 sw $t9, 0($t1) 
 addi $t9, $zero, 201
 sw $t9, 0($t1)
-addi $t9, $zero, 199
-sw $t9, 0($t1)
 
 dice_btn_left_press:        # only for dice roll prompt
 add $s1, $zero, $zero
@@ -25,6 +23,8 @@ sw $t9, 0($t1)
 lw  $t8, 0($t7)		        # r24 = button output
 add $s1, $t8, $zero
 bne $s1, $t2, dice_btn_right_press		# check if right button has been pressed 
+addi $t9, $zero, 199
+sw $t9, 0($t1)
 nop
 nop
 nop                                             
