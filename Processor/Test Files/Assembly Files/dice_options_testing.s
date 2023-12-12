@@ -118,7 +118,7 @@ lw $t8, 0($s3)
 bne $t8, $zero, check1_movements       # update next player information
 
 update_turn1:
-addi $t0, $t0, 1
+addi $t0, $zero, 301
 add $t9, $t0, $zero
 sw $t9, 0($t1)
 j dice_roll_prompt
@@ -133,7 +133,7 @@ lw $t8, 0($s3)
 bne $t8, $zero, check2_movements       # update next player information
 
 update_turn2:
-addi $t0, $t0, 1
+addi $t0, $zero, 302
 add $t9, $t0, $zero
 sw $t9, 0($t1)
 j dice_roll_prompt
@@ -148,7 +148,7 @@ lw $t8, 0($s3)
 bne $t8, $zero, check3_movements       # update next player information
 
 update_turn3:
-addi $t0, $t0, 1
+addi $t0, $zero, 303
 add $t9, $t0, $zero
 sw $t9, 0($t1)
 j dice_roll_prompt
