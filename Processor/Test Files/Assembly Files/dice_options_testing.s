@@ -11,7 +11,8 @@ addi $t0, $zero, 300        # t0 = turns {300, 301, 302, 303}
 
 
 dice_roll_prompt:
-
+addi $t9, $zero, 15                     # send to processor that there are no more moves to be dealt with
+sw $t9, 0($t1)
 addi $t9, $zero, 201                    # processor saves 201 = "dice roll?" prompt
 sw $t9, 0($t1)                          # processor outputs "dice roll?" prompt
 
@@ -19,10 +20,7 @@ dice_btn_left_press:                    # check if left button is pressed
 add $s1, $zero, $zero                   # set s1 = 0
 add $t8, $zero, $zero                   # set t8 = button input = 0
 addi $t7, $zero, 3000                   # set t7 = 3000 (BTNL)
-addi $t9, $zero, 15                     # send to processor that there are no more moves to be dealt with
-sw $t9, 0($t1)
-add $t9, $t0, $zero                     # processor saves current turn 
-sw $t9, 0($t1)                          # processsor outputs current turn
+                
 
 lw  $t8, 0($t7)		                    # t8 = button left input
 add $s1, $t8, $zero                     # set s1 = button left input
