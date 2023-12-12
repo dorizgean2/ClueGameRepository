@@ -3,7 +3,10 @@ addi $t2, $zero, 1		# r10 = 1
 addi $t1, $zero, 2000		# r9 = 2000 (processor_input)
 rng $s7, $zero, $zero
 addi $t9, $s7, 100          # room selection
+sw $t9, 0($t1)
 addi $t0, $zero, 300        # t0 = turns {300, 301, 302, 303}
+add $t9, $t0, $zero
+sw $t9, 0($t1)
 dice_roll_prompt:
 addi $t9, $zero, 201
 
@@ -93,7 +96,6 @@ sw $t9, 0($t1)
 j accuse_weapon_prompt  
 
 movement:
-add $s1, $zero, $zero         # to keep track of difference
 add $t8, $zero, $zero
 addi $s3, $zero, 1000        # from VGA
 
