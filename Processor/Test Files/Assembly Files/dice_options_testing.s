@@ -36,11 +36,11 @@ sw $t9, 0($t1)
 nop
 nop
 nop
-addi $s2, $zero, 300
-bne $t0, $s2, movement1
 addi $s2, $zero, 301
-bne $t0, $s2, movement2
+bne $t0, $s2, movement1
 addi $s2, $zero, 302
+bne $t0, $s2, movement2
+addi $s2, $zero, 303
 bne $t0, $s2, movement3
 j movement4
 
