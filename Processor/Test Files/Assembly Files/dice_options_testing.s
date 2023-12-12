@@ -468,7 +468,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop
-j accusations_check
+j dice_roll_prompt
 
 btn_left_press_weapons:
 nop
@@ -506,7 +506,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop 
-j accusations_check
+j dice_roll_prompt
 
 btn_right_press_weapons:
 nop
@@ -544,7 +544,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop 
-j accusations_check 
+j dice_roll_prompt 
 
 next_page_button:
 add $t8, $zero, $zero
@@ -611,7 +611,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop
-j accusations_check
+j dice_roll_prompt
 
 btn_left_press_weapons_next:
 nop
@@ -649,7 +649,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop  
-j accusations_check
+j dice_roll_prompt
 
 btn_right_press_weapons_next:
 nop
@@ -687,7 +687,7 @@ add $s0, $t9, $zero
 nop
 nop
 nop
-j accusations_check 
+j dice_roll_prompt 
 
 next_page_button_next:
 add $t8, $zero, $zero
@@ -798,7 +798,7 @@ sw $t9, 0($t1)
 nop
 nop
 nop    
-j accusations_check
+j dice_roll_prompt
 
 btn_left_press_rooms:
 nop
@@ -832,7 +832,7 @@ sw $t9, 0($t1)
 nop
 nop
 nop    
-j accusations_check
+j dice_roll_prompt
 
 btn_right_press_rooms:
 nop
@@ -866,7 +866,7 @@ sw $t9, 0($t1)
 nop
 nop
 nop    
-j accusations_check 
+j dice_roll_prompt 
 
 next_page_button_rooms:
 nop
