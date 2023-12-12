@@ -93,9 +93,9 @@ accusations:
 bne $t9, $zero, end_test    
 
 movement:
-nop
-nop
-nop
+addi $t6, $zero, 4000       # r14 = 4000 (BTNR)
+addi $t5, $zero, 5000       # r13 = 5000 (BTNU)
+addi $t4, $zero, 6000       # r12 = 6000 (BTND)
 add $s1, $zero, $zero         # to keep track of difference
 add $s3, $zero, $zero         # counter register
 add $t8, $zero, $zero
