@@ -102,9 +102,13 @@ addi $s3, $zero, 1000        # from VGA
 
 check_movements:                # continuously read from vga until it has reached max movement numbers
 add $t8, $zero, $zero
+lw $t8, 0($t7)
+lw $t8, 0($t6)
+lw $t8, 0($t5)
+lw $t8, 0($t4)
 lw $t8, 0($s3)      
-blt $t8, $t2, update_turn       # update next player information
-j check_movements
+bne $t8, $zero, check_movements       # update next player information
+j update_turn
 
 update_turn:
 addi $t0, $t0, 1
