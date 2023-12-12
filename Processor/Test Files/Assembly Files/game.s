@@ -4,6 +4,7 @@ addi $t1, $zero, 2000		# r9 = 2000 (processor_input)
 rng $s7, $zero, $zero       # save killer identity 
 addi $t9, $s7, 100          # room selection {100, 101, 102, 103}
 addi $t0, $zero, 300          # turn 1 = 300 {300, 301, 302, 303} <- player 1's turn
+# reserve $s0 for weapon
 dice_roll_prompt:
 addi $t9, $zero, 201
 
