@@ -358,6 +358,24 @@ blt $t2, $s6, check_movements       # update next player information <- if 1 < c
 nop
 nop
 nop    
+addi $t3, $zero, 7000            # r12 = 7000 (Red Button)
+nop
+nop
+nop    
+add $s5, $zero, $zero
+read_next_button:
+nop
+nop
+nop 
+lw $t8, 0($t3)                  # read red button
+nop
+nop
+nop    
+add $s5, $t8, $zero
+nop
+nop
+nop
+bne $s5, $t2, read_next_button
 update_turn:                        # otherwise if there are no more moves left then switch whose turn 
 nop
 nop
